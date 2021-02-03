@@ -1,0 +1,60 @@
+***** INDIVIDUAL PLAYER *****
+
+
+specific nba player - https://www.balldontlie.io/api/v1/players?search=lebron%20james
+
+specific nba player - https://www.balldontlie.io/api/v1/players/237
+
+
+***** TEAMS *****
+
+
+current nba teams - https://www.balldontlie.io/api/v1/teams
+
+specific nba team - https://www.balldontlie.io/api/v1/teams/30
+
+
+***** GAMES *****
+
+
+all games of 1 team for a season - https://www.balldontlie.io/api/v1/games?seasons[]=2020&team_ids[]=1
+
+next page for all games of 1 team - https://www.balldontlie.io/api/v1/games?seasons[]=2020&team_ids[]=1&page=2
+
+to get a specific game - https://www.balldontlie.io/api/v1/games/350
+
+get a game of 1 team in a speficic date - https://www.balldontlie.io/api/v1/games?&team_ids[]=1&dates[]=%272017-11-20%27
+
+total games of 1 NBA team per date range - https://www.balldontlie.io/api/v1/games?team_ids[]=1&start_date=%272021-01-01%27&end_date=%272021-02-01%27
+
+
+***** STATS *****
+
+
+all games of a specific nba player per season - https://www.balldontlie.io/api/v1/stats?seasons[]=2018&player_ids[]=237
+
+current season average of a specific nba player - https://www.balldontlie.io/api/v1/season_averages?player_ids[]=237
+
+comparison of stats of 2 nba players per season - https://www.balldontlie.io/api/v1/season_averages?season=2015&player_ids[]=17&player_ids[]=237
+
+
+Core functionalities:
+
+
+- Stats of a specific NBA player this current season and past seasons
+- Next 3 games of a specific NBA team for a specific player
+- Comparison of stats of 2 NBA players this season
+- Stats of the last 3 games of a specific NBA player
+
+- List of current NBA teams
+- Information about the conference and the division of a specific NBA team
+
+
+
+
+
+
+
+
+
+

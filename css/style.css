@@ -1,5 +1,7 @@
 /* blue - #17408b
-red - #c9082a */
+red - #c9082a
+white - #f9f6f
+dark gray - #222222 */
 
 * {
   margin: 0;
@@ -24,6 +26,114 @@ h6 {
 }
 
 p, a {
-  font-size: 21px;
+  font-size: 19px;
   font-family: 'Open Sans', sans-serif;
+}
+
+.btn {
+  border-radius: 0;
+  font-weight: bold;
+  font-size: 15px;
+  padding: .7rem 2.5rem;
+  font-family: 'Open Sans', sans-serif;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background-color: #17408b;
+  border-color: #17408b;
+  color: #f9f6f7;
+}
+
+.btn-primary:hover {
+  background-color: #30579D;
+  border-color: #30579D;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+  box-shadow: none;
+}
+
+.btn-outline-primary {
+  border-color: #17408b;
+  color: #17408b;
+}
+
+.btn-outline-primary:hover {
+  background-color: #17408b;
+  border-color: #17408b;
+}
+
+.btn-danger {
+  background-color: #c9082a;
+  color: #f9f6f7;
+}
+
+.btn-danger:hover {
+  background-color: #E52C4D;
+  border-color: #E52C4D;
+}
+
+.btn-outline-danger {
+  border-color: #c9082a;
+  color: #c9082a;
+}
+
+.btn-danger:focus, .btn-danger.focus {  
+  box-shadow: none;
+}
+
+.btn-outline-danger:hover {
+  background-color: #c9082a;
+  border-color: #c9082a;
+}
+
+.btn-outline-light {
+  border-color: #f9f6f7;
+  color: #f9f6f7;
+}
+
+.btn-outline-light:hover {
+  background-color: #f9f6f7;
+  border-color: #f9f6f7;
+  color: #222222;
+}
+
+.btn-dark {
+  background-color: #222222;
+  border-color: #222222;
+  color: #f9f6f7;
+}
+
+.btn-dark:hover {
+  background-color: #333333;
+  border-color: #333333;
+  color: #f9f6f7;
+}
+
+.btn-dark:focus, .btn-dark.focus {  
+  box-shadow: none;
+}
+
+.card, .modal-content {
+  /* background-color: orange; */
+  border: 0;
+  border-radius: 0;
+  box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.2);
+}
+
+.card-title, .modal-title {
+  font-family: 'Candal', sans-serif;
+  color: #222222;
+  font-size: 27px;
+}
+
+.card-text, .modal-body {
+  font-size: 17px;
+  font-family: 'Open Sans', sans-serif;
+  color: #222222;
+}
+
+.card-img, .card-img-top {
+  border-radius: 0;
 }

@@ -22,11 +22,23 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Candal', sans-serif;
+  /* font-family: 'Candal', sans-serif; */
+  font-family: 'Open Sans', sans-serif;
 }
 
 p, a {
   font-size: 19px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+label {
+  color: #555555;
+  font-size: 16px;  
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+}
+
+table, tr, th, td {
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -46,8 +58,8 @@ p, a {
 }
 
 .btn-primary:hover {
-  background-color: #30579D;
-  border-color: #30579D;
+  background-color: #0C3071;
+  border-color: #0C3071;
 }
 
 .btn-primary:focus, .btn-primary.focus {
@@ -64,14 +76,18 @@ p, a {
   border-color: #17408b;
 }
 
+.btn-outline-primary:focus, .btn-outline-primary.focus {
+  box-shadow: none;
+}
+
 .btn-danger {
   background-color: #c9082a;
   color: #f9f6f7;
 }
 
 .btn-danger:hover {
-  background-color: #E52C4D;
-  border-color: #E52C4D;
+  background-color: #A3001D;
+  border-color: #A3001D;
 }
 
 .btn-outline-danger {
@@ -88,6 +104,10 @@ p, a {
   border-color: #c9082a;
 }
 
+.btn-outline-danger:focus, .btn-outline-danger.focus {
+  box-shadow: none;
+}
+
 .btn-outline-light {
   border-color: #f9f6f7;
   color: #f9f6f7;
@@ -97,6 +117,10 @@ p, a {
   background-color: #f9f6f7;
   border-color: #f9f6f7;
   color: #222222;
+}
+
+.btn-outline-light:focus, .btn-outline-light.focus {
+  box-shadow: none;
 }
 
 .btn-dark {
@@ -115,15 +139,16 @@ p, a {
   box-shadow: none;
 }
 
-.card, .modal-content {
-  /* background-color: orange; */
+.card, .modal-content {  
   border: 0;
   border-radius: 0;
   box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.2);
 }
 
 .card-title, .modal-title {
-  font-family: 'Candal', sans-serif;
+  /* font-family: 'Candal', sans-serif; */
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
   color: #222222;
   font-size: 27px;
 }
@@ -136,4 +161,32 @@ p, a {
 
 .card-img, .card-img-top {
   border-radius: 0;
+}
+
+.form-control {
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 0;
+  border: 1px solid #888888;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+  color: #222222;
+}
+
+.form-control:focus {
+  color: #555555;
+  background-color: #fff;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+  border-color: #17408b;
+  outline: 0;
+  box-shadow: none;
+}
+
+.table {
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.table .thead-dark th {
+  background-color: #c9082a;
+  border-color: #c9082a;
 }

@@ -26,8 +26,13 @@ h6 {
   font-family: 'Open Sans', sans-serif;
 }
 
-p, a {
+p {
   font-size: 19px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+a {
+  font-size: 17px;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -189,4 +194,8 @@ table, tr, th, td {
 .table .thead-dark th {
   background-color: #c9082a;
   border-color: #c9082a;
+}
+
+.bg-primary {
+  background-color: #17408b !important;
 }

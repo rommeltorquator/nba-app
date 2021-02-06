@@ -23,12 +23,12 @@
 
     <nav style="box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.2);" class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="index.html"><strong>NBA</strong></a>
+            <a class="navbar-brand" href="index.html"><strong>NBA Player Tracker Web App</strong></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-    
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
@@ -76,13 +76,62 @@
             </div>
         </div>
     </div>
+            
+    <!-- collapse -->
+    <div class="container">
+        <p>
+            <button id="collapseButton" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                aria-expanded="false" aria-controls="collapseExample">
+                Last 3 games
+            </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <table class="table w-100">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Jersey #</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Team</th>
+                        <th scope="col">PPG</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">23</th>
+                        <td>Carmelo</td>
+                        <td>Anthony</td>
+                        <td>Los Angeles Lakers</td>
+                        <td><strong>27.4</strong></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">23</th>
+                        <td>Carmelo</td>
+                        <td>Anthony</td>
+                        <td>Los Angeles Lakers</td>
+                        <td><strong>27.4</strong></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">23</th>
+                        <td>Carmelo</td>
+                        <td>Anthony</td>
+                        <td>Los Angeles Lakers</td>
+                        <td><strong>27.4</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
 
     <!-- player profile -->
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <div class="p-4"
-                    style="background-color: #ffffff; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+                <div class="p-4" style="background-color: #ffffff; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
                     <h2 class="text-center mb-3"><strong>Booklyn Nets</strong></h2>
                     <p class="text-center mb-3" style="color: #17408b;"><strong>East</strong></p>
 
@@ -108,8 +157,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class="p-4"
-                    style="background-color: #ffffff; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+                <div class="p-4" style="background-color: #ffffff; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
                     <h2 class="text-center mb-3"><strong>Booklyn Nets</strong></h2>
                     <p class="text-center mb-3" style="color: #17408b;"><strong>East</strong></p>
 
@@ -135,8 +183,7 @@
             </div>
 
             <div class="col-md-4">
-                <div class="p-4"
-                    style="background-color: #ffffff; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+                <div class="p-4" style="background-color: #ffffff; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
                     <h2 class="text-center mb-3"><strong>Booklyn Nets</strong></h2>
                     <p class="text-center mb-3" style="color: #17408b;"><strong>East</strong></p>
 
@@ -170,10 +217,14 @@
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati velit quod corporis odio rerum veritatis.
         Minima exercitationem numquam fugiat provident porro in ipsum. Incidunt harum optio animi, alias laudantium
         accusantium doloremque debitis, magni nemo officiis a vitae reiciendis consequatur et exercitationem maiores
-        aliquam nam deserunt. Pariatur repellendus excepturi natus in magnam molestias, aliquid numquam nobis blanditiis
-        ipsam debitis dolorum cupiditate consequatur hic officiis suscipit odit neque tempore quae? Omnis aut aspernatur
-        inventore, sint sed repellat quis quas consequatur quia ducimus. Sit, iste deleniti. Non accusantium voluptatum
-        ex dolor, ratione eligendi odit dicta assumenda, adipisci pariatur totam repudiandae recusandae at doloremque!
+        aliquam nam deserunt. Pariatur repellendus excepturi natus in magnam molestias, aliquid numquam nobis
+        blanditiis
+        ipsam debitis dolorum cupiditate consequatur hic officiis suscipit odit neque tempore quae? Omnis aut
+        aspernatur
+        inventore, sint sed repellat quis quas consequatur quia ducimus. Sit, iste deleniti. Non accusantium
+        voluptatum
+        ex dolor, ratione eligendi odit dicta assumenda, adipisci pariatur totam repudiandae recusandae at
+        doloremque!
     </p>
 
     <!-- jQuery -->
@@ -184,6 +235,8 @@
     <script src="js/popper.min.js"></script>
     <!-- Font Awesome -->
     <script src="js/all.min.js"></script>
+    <!-- custom script -->
+    <script src="js/script.js"></script>
 </body>
 
 </html>

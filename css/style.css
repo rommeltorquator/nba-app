@@ -69,6 +69,8 @@ table, tr, th, td {
 
 .btn-primary:focus, .btn-primary.focus {
   box-shadow: none;
+  background-color: #0C3071;
+  border-color: #0C3071;
 }
 
 .btn-outline-primary {
@@ -102,6 +104,8 @@ table, tr, th, td {
 
 .btn-danger:focus, .btn-danger.focus {  
   box-shadow: none;
+  background-color: #A3001D;
+  border-color: #A3001D;
 }
 
 .btn-outline-danger:hover {

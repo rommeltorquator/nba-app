@@ -1,6 +1,6 @@
 /* blue - #17408b
 red - #c9082a
-white - #f9f6f
+white - #f9f6f7
 dark gray - #222222 */
 
 * {
@@ -47,13 +47,50 @@ table, tr, th, td {
   font-family: 'Open Sans', sans-serif;
 }
 
+.shadow {
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.2);
+}
+
+.img-logo {
+  width: 50px;
+  height: 100%;
+}
+
+.main-heading {
+  font-size: 72px;
+}
+
+.font-light {
+  color: #f9f6f7;
+}
+
+.font-dark {
+  color: #212529;
+}
+
+.form-player {
+  display: block; 
+  margin: 0 auto; 
+  width: 100%; 
+  background-color: #ffffff; 
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 .btn {
   border-radius: 0;
   font-weight: bold;
   font-size: 15px;
-  padding: .7rem 2.5rem;
+  padding: .5rem 2.5rem;
   font-family: 'Open Sans', sans-serif;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.player-input {  
+  font-size: 19px !important;
+  /* padding: .7rem 2.5rem; */
+  /* width: 320px !important; */
+  height: 39.5px;
+  color: #333333;
 }
 
 .btn-primary {
@@ -89,6 +126,7 @@ table, tr, th, td {
 
 .btn-danger {
   background-color: #c9082a;
+  border-color: #A3001D;
   color: #f9f6f7;
 }
 
@@ -193,6 +231,7 @@ table, tr, th, td {
 
 .table {
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
 }
 
 .table .thead-dark th {
@@ -202,4 +241,8 @@ table, tr, th, td {
 
 .bg-primary {
   background-color: #17408b !important;
+}
+
+.bg-dark {
+  background-color: #333333 !important;
 }

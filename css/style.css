@@ -57,7 +57,7 @@ table, tr, th, td {
 }
 
 .main-heading {
-  font-size: 72px;
+  font-size: 52px;
 }
 
 .font-light {
@@ -126,7 +126,7 @@ table, tr, th, td {
 
 .btn-danger {
   background-color: #c9082a;
-  border-color: #A3001D;
+  border-color: #c9082a;
   color: #f9f6f7;
 }
 
@@ -208,6 +208,10 @@ table, tr, th, td {
 
 .card-img, .card-img-top {
   border-radius: 0;
+}
+
+.card-body {
+  background-color: #ffffff;
 }
 
 .form-control {

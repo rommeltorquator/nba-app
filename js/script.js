@@ -25,7 +25,13 @@ $('#collapseExample').on('hidden.bs.collapse', function () {
 //   },
 //   body: JSON.stringify(data),
 // })
-// .then(response => response.json())
+// .then(response => {
+    //  if(response.ok) {
+    //     return response.json()
+    //  } else {
+    //     console.log('Error')
+    //  }
+// })
 // .then(data => {
 //   console.log('Success:', data);
 // })

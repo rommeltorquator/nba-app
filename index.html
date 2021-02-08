@@ -46,7 +46,6 @@
 		<h1 class="mb-5 main-heading"><img class="mb-2 img-logo" src="img/logo.png" alt=""> <strong>NBA Player Tracker
 				Web App</strong></h1>
 	</div>
-
 	
 	<div class="bg-dark shadow mb-5 py-4">
 		<div class="container">
@@ -54,15 +53,15 @@
 				<div class="col-2"></div>
 				<div class="col-8">
 					<h2 class="font-light text-center mb-4"><strong>Enter the player's full name</strong></h2>	
-					<form class="form-inline d-flex justify-content-center">							
+					<form class="form-inline d-flex justify-content-center">					
 						<label class="sr-only" for="fullName">Full name</label>
-						<input type="text" class="form-control mb-2 mr-sm-2 player-input" id="firstName" placeholder="First name">		
-						<input type="text" class="form-control mb-2 mr-sm-2 player-input" id="lastName" placeholder="Last name">
+						<input required type="text" class="form-control mb-2 mr-sm-2 player-input" id="firstName1" placeholder="First name">		
+						<input required type="text" class="form-control mb-2 mr-sm-2 player-input" id="lastName1" placeholder="Last name">
 
-						<button type="button" class="btn btn-danger mb-2">
+						<button type="button" class="btn btn-danger mb-2" id="player-button">
 							Submit
 						</button>
-					</form>			
+					</form>
 				</div>
 				<div class="col-2"></div>
 			</div>
@@ -70,37 +69,37 @@
 	</div>
 
 	<!-- no player found -->
-	<!-- <h3 style="color: #c9082a; font-weight: 200;" class="text-center">No player found</h3> -->
+	<h3 id="no-player" style="color: #c9082a; font-weight: 200; display: none;" class="text-center">No player found</h3>
 
 	<!-- player profile -->
-	<div class="container">
+	<div class="container" id="player-profile" style="display: none;">
 		<div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">				
 				<div class="d-flex justify-content-center mb-5">
 					<div class="card w-100">
 						<div class="card-body">
-							<h5 class="card-title text-center">Lebron James</h5>
-							<p class="text-center" style="color: #17408b; font-weight: 600; font-size: 17px;">Chicago Bulls</p>
+							<h5 id="full-name" class="card-title text-center"><strong>Lebron James</strong></h5>
+							<p id="team" class="text-center team-p">Chicago Bulls</p>
 
 							<hr>
 
 							<div class="row mb-3">
 								<div class="col-3">
 									<h5 class="text-center mb-3" style="color: #c9082a;"><strong>PPG</strong></h5>
-									<h6 class="text-center">27.3</h6>
+									<h6 id="ppg" class="text-center">27.3</h6>
 								</div>
 								<div class="col-3">
 									<h5 class="text-center mb-3" style="color: #c9082a;"><strong>RPG</strong></h5>
-									<h6 class="text-center">13.4</h6>
+									<h6 id="rpg" class="text-center">13.4</h6>
 								</div>
 								<div class="col-3">
 									<h5 class="text-center mb-3" style="color: #c9082a;"><strong>APG</strong></h5>
-									<h6 class="text-center">9</h6>
+									<h6 id="apg" class="text-center">9</h6>
 								</div>
 								<div class="col-3">
-									<h5 class="text-center mb-3" style="color: #c9082a;"><strong>FG%</strong></h5>
-									<h6 class="text-center">39%</h6>
+									<h5 class="text-center mb-3" style="color: #c9082a;"><strong>GP</strong></h5>
+									<h6 id="fg" class="text-center">39%</h6>
 								</div>
 							</div>
 														

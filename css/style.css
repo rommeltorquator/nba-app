@@ -250,3 +250,9 @@ table, tr, th, td {
 .bg-dark {
   background-color: #333333 !important;
 }
+
+.team-p {
+  color: #17408b; 
+  font-weight: 600; 
+  font-size: 17px;
+}

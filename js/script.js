@@ -20,9 +20,9 @@ function getPlayer() {
     last = document.getElementById('lastName1').value
 
     // to check if input is not empty
-    if(!first && !last) {
+    if(!first || !last) {
         document.getElementById('no-player').style.display = 'block'
-        document.getElementById('no-player').innerText = 'Please enter a name'
+        document.getElementById('no-player').innerText = 'Please enter a full name'
         document.getElementById('player-profile').style.display = 'none'
     } else {
         fetch(`https://www.balldontlie.io/api/v1/players?search=${first}%20${last}`)
@@ -34,11 +34,38 @@ function getPlayer() {
                 document.getElementById('no-player').innerText = 'Player not found'
                 document.getElementById('player-profile').style.display = 'none'
             } else {
-                console.log(data.data[0])
+                // console.log(data.data[0])
                 playerId = parseInt(data.data[0].id)
                 document.getElementById('full-name').innerText = `${data.data[0].first_name} ${data.data[0].last_name}`
                 document.getElementById('team').innerText = `${data.data[0].team.full_name}` 
                 document.getElementById('no-player').style.display = 'none'
+
+                // gets all the games of a specific player
+                fetch(`https://www.balldontlie.io/api/v1/stats?seasons[]=2020&player_ids[]=${playerId}`)
+                .then(res => res.json())
+                .then(data => {                    
+                    const arr1 = data.data
+
+                    // sorted previous games in descending order
+                    arr1.sort((a, b) => {
+                        // return a.id - b.id // asc
+                        return b.game.id - a.game.id // desc
+                    });
+                    console.log(arr1)
+                    let container = ''
+                    arr1.map(x => {
+                        container += `<li>date: ${x.game.date} opponent: ${x.game.visitor_team_id} pts: ${x.pts} reb: ${x.reb} ast: ${x.ast} stl: ${x.stl} fg%: ${x.fg_pct}</li>`
+                    })
+                    document.getElementById('test-ul').innerHTML += container
+                })
+
+
+                // products.sort((a, b) => {
+                //     return a.price + b.price
+                // });
+                // sorting example
+                             
+                
 
                 // show the current stats for the selected this season
                 fetch(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${playerId}`)
@@ -46,11 +73,11 @@ function getPlayer() {
                 .then(data => {
                     // if no available stats 
                     if(data.data.length < 1) {
+                        document.getElementById('player-profile').style.display = 'none'
                         document.getElementById('no-player').style.display = 'block'
                         document.getElementById('no-player').innerText = 'No available stats for the current season'
-                        document.getElementById('player-profile').style.display = 'none'
                     } else {
-                        console.log(data.data[0])
+                        // console.log(data.data[0])
                         document.getElementById('ppg').innerText = data.data[0].pts
                         document.getElementById('rpg').innerText = data.data[0].reb
                         document.getElementById('apg').innerText = data.data[0].ast

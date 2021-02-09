@@ -58,29 +58,31 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">First name</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                    <input type="text" class="form-control" id="playerFirst1" aria-describedby="emailHelp"
                                         placeholder="First name">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Last name</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Last name">
+                                    <input type="text" class="form-control" id="playerLast1" placeholder="Last name">
                                 </div>
                             </div>
+
                             <!-- player 2 -->
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">First name</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                    <input type="text" class="form-control" id="playerFirst2" aria-describedby="emailHelp"
                                         placeholder="First name">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Last name</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Last name">
+                                    <input type="text" class="form-control" id="playerLast2" placeholder="Last name">
                                 </div>
                             </div>
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-danger w-100">Submit</button>
+
+                        <button id="players-button" type="submit" class="btn btn-danger w-100">Submit</button>
                     </form>
                 </div>
                 <div class="col-2"></div>
@@ -91,32 +93,40 @@
     <!-- no player found -->
 	<!-- <h3 style="color: #c9082a; font-weight: 200;" class="text-center">Invalid query</h3> -->
 
-    <div class="container">
+    <!-- players-profile
+    p1-name
+    p1-team
+    p1-ppg
+    p1-rpg
+    p1-apg
+    p1-fg -->
+
+    <div class="container" id="players-profile" style="display: none;">
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Lebron James</h5>
-                        <p class="text-center" style="color: #17408b; font-weight: 600; font-size: 17px;">Chicago Bulls</p>
+                        <h5 class="card-title text-center" id="p1-name">Lebron James</h5>
+                        <p id="p1-team" class="text-center" style="color: #17408b; font-weight: 600; font-size: 17px;">Chicago Bulls</p>
     
                         <hr>
     
                         <div class="row mb-3">
                             <div class="col-3">
                                 <h5 class="text-center mb-3" style="color: #c9082a;"><strong>PPG</strong></h5>
-                                <h6 class="text-center">27.3</h6>
+                                <h6 id="p1-ppg" class="text-center">27.3</h6>
                             </div>
                             <div class="col-3">
                                 <h5 class="text-center mb-3" style="color: #c9082a;"><strong>RPG</strong></h5>
-                                <h6 class="text-center">13.4</h6>
+                                <h6 id="p1-rpg" class="text-center">13.4</h6>
                             </div>
                             <div class="col-3">
                                 <h5 class="text-center mb-3" style="color: #c9082a;"><strong>APG</strong></h5>
-                                <h6 class="text-center">9</h6>
+                                <h6 id="p1-apg" class="text-center">9</h6>
                             </div>
                             <div class="col-3">
                                 <h5 class="text-center mb-3" style="color: #c9082a;"><strong>FG%</strong></h5>
-                                <h6 class="text-center">39%</h6>
+                                <h6 id="p1-fg" class="text-center">39%</h6>
                             </div>
                         </div>
                                                     
@@ -131,27 +141,27 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title text-center">Lebron James</h5>
-                        <p class="text-center" style="color: #17408b; font-weight: 600; font-size: 17px;">Chicago Bulls</p>
+                        <h5 class="card-title text-center" id="p2-name">Lebron James</h5>
+                        <p id="p2-team" class="text-center" style="color: #17408b; font-weight: 600; font-size: 17px;">Chicago Bulls</p>
     
                         <hr>
     
                         <div class="row mb-3">
                             <div class="col-3">
                                 <h5 class="text-center mb-3" style="color: #c9082a;"><strong>PPG</strong></h5>
-                                <h6 class="text-center">27.3</h6>
+                                <h6 id="p2-ppg" class="text-center">27.3</h6>
                             </div>
                             <div class="col-3">
                                 <h5 class="text-center mb-3" style="color: #c9082a;"><strong>RPG</strong></h5>
-                                <h6 class="text-center">13.4</h6>
+                                <h6 id="p2-rpg" class="text-center">13.4</h6>
                             </div>
                             <div class="col-3">
                                 <h5 class="text-center mb-3" style="color: #c9082a;"><strong>APG</strong></h5>
-                                <h6 class="text-center">9</h6>
+                                <h6 id="p2-apg" class="text-center">9</h6>
                             </div>
                             <div class="col-3">
                                 <h5 class="text-center mb-3" style="color: #c9082a;"><strong>FG%</strong></h5>
-                                <h6 class="text-center">39%</h6>
+                                <h6 id="p2-fg" class="text-center">39%</h6>
                             </div>
                         </div>
                                                     

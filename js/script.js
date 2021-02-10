@@ -20,31 +20,43 @@ if(document.getElementById('player-button') != null) {
 if(document.getElementById('players-button') !=null) {
     document.getElementById('players-button').addEventListener('click', (e) => {
         e.preventDefault()
+
+        // if form is empty
         let f1 = document.getElementById('playerFirst1').value
         let l1 = document.getElementById('playerLast1').value
-        let p1Id
-
-        fetch(`https://www.balldontlie.io/api/v1/players?search=${f1}%20${l1}`)
-        .then(res => res.json())
-        .then(data => {
-            p1Id = parseInt(data.data[0].id)
-            console.log(typeof p1Id)
-        })
-
         let f2 = document.getElementById('playerFirst2').value
-        let l2 = document.getElementById('playerLast2').value
-        let p2Id
+        let l2 = document.getElementById('playerLast2').value       
+        let name1
+        let name2
 
-        fetch(`https://www.balldontlie.io/api/v1/players?search=${f2}%20${l2}`)
-        .then(res => res.json())
-        .then(data => {
-            p2Id = parseInt(data.data[0].id)
-            console.log(typeof p2Id)
-        })       
+        if(!f1 && !l1 && !f2 && !l2) {
+            console.log('empty')
+            document.getElementById('no-players').style.display = 'block'            
+        } else {
+            let p1Id
+            // player 1 query
+            fetch(`https://www.balldontlie.io/api/v1/players?search=${f1}%20${l1}`)
+            .then(res => res.json())
+            .then(data => {
+                // name1 = `${data.data[0].first_name} ${data.data[0].last_name}`
+                name1 = 'tae'
+                p1Id = parseInt(data.data[0].id)
+                // console.log(typeof p1Id)
+            })    
+            
+            let p2Id
+            // player 2 query
+            fetch(`https://www.balldontlie.io/api/v1/players?search=${f2}%20${l2}`)
+            .then(res => res.json())
+            .then(data => {
+                name2 = `${data.data[0].first_name} ${data.data[0].last_name}`
+                p2Id = parseInt(data.data[0].id)
+                // console.log(typeof p2Id)
+            })
+            
+            comparePlayers(p1Id, p2Id, name1, "lebron")
+        }
         
-        comparePlayers(p1Id, p2Id)
-
-        document.getElementById('players-profile').style.display = 'block'
     })
 }
 
@@ -56,16 +68,28 @@ getTeamNames()
 
 // functions //
 
-async function comparePlayers(a,b) {
-    const res = await fetch(`https://www.balldontlie.io/api/v1/season_averages?season=2020&player_ids[]=17&player_ids[]=237`)
-    const data = await res.json()
+// async function comparePlayers(a,b, n1, n2) {
+//     const res = await fetch(`https://www.balldontlie.io/api/v1/season_averages?season=2020&player_ids[]=${a}&player_ids[]=${b}`)
+//     const data = await res.json()
+//     document.getElementById('players-profile').style.display = 'block'
+    // players-profile
+    // p1-name
+    // p1-team
+    // p1-ppg
+    // p1-rpg
+    // p1-apg
+    // p1-fg
+    document.getElementById('p1-name').textContent = n1
+    document.getElementById('p1-team').textContent = 'lakers'
+    document.getElementById('p1-ppg').textContent = data.data[0].pts
+    document.getElementById('p1-rpg').textContent = data.data[0].reb
+    document.getElementById('p1-apg').textContent = data.data[0].ast
+    document.getElementById('p1-fg').textContent = data.data[0].games_played
     console.log(data)
-
-
-}
+// }
 
 // get the individual player
-function getPlayer() {    
+function getPlayer() {
     // stores the values of inputs
     first = document.getElementById('firstName1').value
     last = document.getElementById('lastName1').value
@@ -173,9 +197,6 @@ async function getLast3Games() {
     })
     document.getElementById('player-table').innerHTML += container
 }
-
-
-
 
 
 

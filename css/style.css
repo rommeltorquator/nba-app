@@ -47,6 +47,25 @@ table, tr, th, td {
   font-family: 'Open Sans', sans-serif;
 }
 
+.text-red {
+  color: #c9082a;
+}
+
+.card-players {
+  background-color: #ffffff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.error-style {
+  color: #c9082a;
+  font-weight: 200;
+  display: none;
+}
+
+.teams-container {
+  padding-bottom: 0!important;
+}
+
 .shadow {
   box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.2);
 }

@@ -6,7 +6,7 @@ $('#collapseExample').on('shown.bs.collapse', function () {
 
 $('#collapseExample').on('hidden.bs.collapse', function () {
     // do something...
-    document.getElementById('collapseButton').innerText = "Show more stats"
+    document.getElementById('collapseButton').innerText = "Last 3 games"
     // document.getElementById('last-3').classList.remove('py-4')
 })
 
@@ -17,6 +17,7 @@ if(document.getElementById('player-button') != null) {
     document.getElementById('player-button').addEventListener('click', getPlayer)
 }
 
+// get 2 players
 if(document.getElementById('players-button') !=null) {
     document.getElementById('players-button').addEventListener('click', (e) => {
         e.preventDefault()
@@ -28,65 +29,43 @@ if(document.getElementById('players-button') !=null) {
         let l2 = document.getElementById('playerLast2').value       
         let name1
         let name2
+        let p1Id = 0
+        let p2Id = 0
+        let data1
 
-        if(!f1 && !l1 && !f2 && !l2) {
-            console.log('empty')
-            document.getElementById('no-players').style.display = 'block'            
-        } else {
-            let p1Id
-            // player 1 query
-            fetch(`https://www.balldontlie.io/api/v1/players?search=${f1}%20${l1}`)
-            .then(res => res.json())
-            .then(data => {
-                // name1 = `${data.data[0].first_name} ${data.data[0].last_name}`
-                name1 = 'tae'
-                p1Id = parseInt(data.data[0].id)
-                // console.log(typeof p1Id)
-            })    
-            
-            let p2Id
-            // player 2 query
-            fetch(`https://www.balldontlie.io/api/v1/players?search=${f2}%20${l2}`)
-            .then(res => res.json())
-            .then(data => {
-                name2 = `${data.data[0].first_name} ${data.data[0].last_name}`
-                p2Id = parseInt(data.data[0].id)
-                // console.log(typeof p2Id)
-            })
-            
-            comparePlayers(p1Id, p2Id, name1, "lebron")
+        if(!f1 || !l1 || !f2 || !l2) {            
+            document.getElementById('no-players').style.display = 'block'
+            document.querySelector('.card-1').style.display = `none`
+            document.querySelector('.card-2').style.display = `none`
+            document.getElementById('no-player-1').style.display = 'none'
+            document.getElementById('no-player-2').style.display = 'none'
+        } else {       
+            if(f1 == f2 && l1 == l2)      {
+                document.getElementById('no-players').style.display = 'block'
+                document.getElementById('no-player-1').style.display = 'none'
+                document.getElementById('no-player-2').style.display = 'none'
+                document.querySelector('.card-1').style.display = `none`
+                document.querySelector('.card-2').style.display = `none`
+            } else {
+                document.getElementById('no-players').style.display = 'none'     
+                getP1(f1, l1)
+                getP2(f2, l2)
+            }            
         }
-        
     })
 }
 
 let teamNames = []
 let playerId
 
-// get the teams
+// get the team names
 getTeamNames()
 
-// functions //
+// show all current nba teams
+showTeams()
 
-// async function comparePlayers(a,b, n1, n2) {
-//     const res = await fetch(`https://www.balldontlie.io/api/v1/season_averages?season=2020&player_ids[]=${a}&player_ids[]=${b}`)
-//     const data = await res.json()
-//     document.getElementById('players-profile').style.display = 'block'
-    // players-profile
-    // p1-name
-    // p1-team
-    // p1-ppg
-    // p1-rpg
-    // p1-apg
-    // p1-fg
-    document.getElementById('p1-name').textContent = n1
-    document.getElementById('p1-team').textContent = 'lakers'
-    document.getElementById('p1-ppg').textContent = data.data[0].pts
-    document.getElementById('p1-rpg').textContent = data.data[0].reb
-    document.getElementById('p1-apg').textContent = data.data[0].ast
-    document.getElementById('p1-fg').textContent = data.data[0].games_played
-    console.log(data)
-// }
+
+// ***** functions ***** //
 
 // get the individual player
 function getPlayer() {
@@ -178,13 +157,16 @@ async function getLast3Games() {
     let container = ''
     let date
 
+    // <td><strong>${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}</strong></td>
+
     arr1.slice(0, 3).forEach(x => {
+        // console.log(x.game.date.substr(0, 10))
         date = new Date(x.game.date.substr(0, 10))
         const monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"];
         container += `                   
-        <tr>                            
-            <td><strong>${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}</strong></td>
+        <tr>
+            <td><strong>${monthNames[date.getMonth()]} ${date.getDate() + 2}, ${date.getFullYear()}</strong></td>
             <td>${x.game.visitor_team_id != x.player.team_id ? teamNames[x.game.visitor_team_id - 1].full_name : teamNames[x.game.home_team_id - 1].full_name}</td>
             <td><strong>${x.pts}</strong></td>
                 <td>${x.reb}</td>
@@ -196,6 +178,117 @@ async function getLast3Games() {
         `
     })
     document.getElementById('player-table').innerHTML += container
+}
+
+async function getP1(f1, l1) {
+    // player 1 query
+    res = await fetch(`https://www.balldontlie.io/api/v1/players?search=${f1}%20${l1}`)
+    data = await res.json()
+
+    if (data.data.length < 1) {
+        document.querySelector('.card-1').style.display = `none`
+        document.getElementById('no-player-1').style.display = 'block'
+        document.getElementById('no-player-1').innerText = 'Player not found'
+    } else {
+        p1Id = data.data[0].id
+            
+        let first = data.data[0].first_name
+        let last = data.data[0].last_name
+        let team = data.data[0].team.full_name
+    
+        // show the current stats of specific player for the selected this season
+        fetch(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${p1Id}`)
+        .then(res => res.json())
+        .then(data => {
+            // if no available stats 
+            if (data.data.length < 1) {
+                document.querySelector('.card-1').style.display = `none`
+                document.getElementById('no-player-1').style.display = 'block'
+                document.getElementById('no-player-1').innerText = 'No available stats for the current season'
+            } else {
+                // console.log(data.data[0])
+
+                // season stats
+                document.getElementById('no-player-1').style.display = 'none'
+                document.querySelector('.card-1').style.display = `block`
+                document.getElementById('p1-name').textContent = `${first} ${last}`
+                document.getElementById('p1-team').textContent = `${team}`
+                document.getElementById('p1-ppg').textContent = data.data[0].pts
+                document.getElementById('p1-rpg').textContent = data.data[0].reb
+                document.getElementById('p1-apg').textContent = data.data[0].ast
+                document.getElementById('p1-fg').textContent = data.data[0].games_played
+            }
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+}
+
+async function getP2(f2, l2) {
+    // player 2 query
+    res = await fetch(`https://www.balldontlie.io/api/v1/players?search=${f2}%20${l2}`)
+    data = await res.json()
+
+    if (data.data.length < 1) {
+        document.querySelector('.card-2').style.display = `none`
+        document.getElementById('no-player-2').style.display = 'block'
+        document.getElementById('no-player-2').innerText = 'Player not found'
+    } else {
+        p2Id = data.data[0].id
+
+        let first = data.data[0].first_name
+        let last = data.data[0].last_name
+        let team = data.data[0].team.full_name
+
+        // show the current stats of specific player for the selected this season
+        fetch(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${p2Id}`)
+        .then(res => res.json())
+        .then(data => {
+            // if no available stats 
+            if (data.data.length < 1) {
+                document.querySelector('.card-2').style.display = `none`
+                document.getElementById('no-player-2').style.display = 'block'
+                document.getElementById('no-player-2').innerText = 'No available stats for the current season'
+            } else {
+                // console.log(data.data[0])
+                // season stats
+                document.getElementById('no-player-2').style.display = 'none'
+                document.querySelector('.card-2').style.display = `block`
+                document.getElementById('p2-name').textContent = `${first} ${last}`
+                document.getElementById('p2-team').textContent = `${team}`
+                document.getElementById('p2-ppg').textContent = data.data[0].pts
+                document.getElementById('p2-rpg').textContent = data.data[0].reb
+                document.getElementById('p2-apg').textContent = data.data[0].ast
+                document.getElementById('p2-fg').textContent = data.data[0].games_played
+            }
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }    
+}
+
+async function showTeams() {
+    res = await fetch('https://www.balldontlie.io/api/v1/teams')
+    data = await res.json()
+    let container = ''
+
+    data.data.forEach(x => {
+        console.log(x)
+        container += `
+        <div class="d-flex shadow flex-column justify-content-center mb-4" style="width: 205px; height: 205px; background-color: #fff;">
+            <img class="d-block" style="width: 110px; margin: 0 auto;" src="img/${x.id}.svg" alt="">
+            <p class="text-center" style="font-weight: 600; font-size: 16px; margin-bottom: 4px;">${x.full_name}</p>
+            <p class="text-center" style="color: ${x.conference == 'West' ? '#17408b' : '#c9082a'}; font-weight: 600; font-size: 14px; margin-bottom: 4px;">${x.conference}</p>
+            <p class="text-center" style="font-weight: 600; font-size: 11px; margin-bottom: 4px;">${x.division} Division</p> 
+        </div>
+        `
+    })
+
+    if(document.getElementById('teams-row') != null) {
+        document.getElementById('teams-row').innerHTML += container
+    }
 }
 
 

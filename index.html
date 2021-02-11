@@ -50,8 +50,8 @@
 	<div class="bg-dark shadow mb-5 py-4">
 		<div class="container">
 			<div class="row">
-				<div class="col-2"></div>
-				<div class="col-8">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
 					<h2 class="font-light text-center mb-4"><strong>Enter the player's full name</strong></h2>	
 					<form class="form-inline d-flex justify-content-center">					
 						<label class="sr-only" for="fullName">Full name</label>
@@ -63,19 +63,19 @@
 						</button>
 					</form>
 				</div>
-				<div class="col-2"></div>
+				<div class="col-md-2"></div>
 			</div>
 		</div>
 	</div>
 
 	<!-- no player found -->
-	<h3 id="no-player" style="color: #c9082a; font-weight: 200; display: none;" class="text-center mb-5">No player found</h3>
+	<h3 id="no-player" class="text-center mb-5 error-style">No player found</h3>
 
 	<!-- player profile -->
 	<div class="container" id="player-profile" style="display: none;">
 		<div class="row">
-			<div class="col-3"></div>
-			<div class="col-6">				
+			<div class="col-md-3"></div>
+			<div class="col-md-6">				
 				<div class="d-flex justify-content-center mb-5">
 					<div class="card w-100">
 						<div class="card-body">
@@ -86,19 +86,19 @@
 
 							<div class="row mb-3">
 								<div class="col-3">
-									<h5 class="text-center mb-3" style="color: #c9082a;"><strong>PPG</strong></h5>
+									<h5 class="text-center mb-3 text-red"><strong>PPG</strong></h5>
 									<h6 id="ppg" class="text-center">27.3</h6>
 								</div>
 								<div class="col-3">
-									<h5 class="text-center mb-3" style="color: #c9082a;"><strong>RPG</strong></h5>
+									<h5 class="text-center mb-3 text-red"><strong>RPG</strong></h5>
 									<h6 id="rpg" class="text-center">13.4</h6>
 								</div>
 								<div class="col-3">
-									<h5 class="text-center mb-3" style="color: #c9082a;"><strong>APG</strong></h5>
+									<h5 class="text-center mb-3 text-red"><strong>APG</strong></h5>
 									<h6 id="apg" class="text-center">9</h6>
 								</div>
 								<div class="col-3">
-									<h5 class="text-center mb-3" style="color: #c9082a;"><strong>GP</strong></h5>
+									<h5 class="text-center mb-3 text-red"><strong>GP</strong></h5>
 									<h6 id="fg" class="text-center">39%</h6>
 								</div>
 							</div>
@@ -106,14 +106,14 @@
 							<p>
 								<button id="collapseButton" class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#collapseExample"
 									aria-expanded="false" aria-controls="collapseExample">
-									Show more stats
+									Last 3 games
 								</button>
 							</p>			
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-3"></div>
+			<div class="col-md-3"></div>
 		</div>
 	</div>	
 
@@ -138,91 +138,12 @@
 							<th scope="col">FG%</th>
 						</tr>
 					</thead>
-					<tbody id="player-table">						
+					<tbody id="player-table">
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
-
-	<!-- <p class="mb-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore delectus fugit pariatur
-		labore voluptatum autem veritatis dolores non doloribus sequi repudiandae rerum architecto assumenda dolorum
-		odit cumque hic dicta facilis molestias reprehenderit est, voluptate repellat laudantium dignissimos.
-		Commodi, quidem officia temporibus esse autem neque, corrupti reprehenderit sunt, iusto cupiditate possimus.
-		This is a test design.</p>
-
-	<button type="button" class="btn btn-danger">Enter The App</button>
-	<button type="button" class="btn btn-outline-danger">Enter The App</button>
-	<button type="button" class="btn btn-primary">Primary</button>
-	<button type="button" class="btn btn-outline-primary">Primary</button> -->
-
-	<!-- card 1 -->
-	<!-- <div class="d-flex justify-content-center mb-5">
-		<div class="card" style="width:330px;">
-			<img class="card-img-top" src="img/dummy.jpg" alt="Card image cap">
-			<div class="card-body">
-				<h5 class="card-title">Lebron James</h5>
-				<p style="color: #17408b; font-weight: 600; font-size: 17px;">This is a sample card design</p>
-				<p class="card-text">Some quick <strong>example</strong> text to build on the card title and make up the bulk of the
-					card's
-					content.</p>
-				<button type="button" class="btn btn-primary w-100">Primary</button>
-				<button type="button" class="btn btn-danger w-100">Primary</button>
-				<button type="button" class="btn btn-dark w-100">Primary</button>
-			</div>
-		</div>
-	</div> -->
-
-	<!-- <div class="py-3 mt-5"
-		style="width: 100%; height: 1300px; background-color: #222222; box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.2);">
-		<h1 style="font-size: 72px; color: #ffffff;" class="mb-5 text-center"><strong>Welcome to the NBA Player Tracker Web App</strong>
-		</h1>
-		
-		card 1
-		<div class="d-flex justify-content-center mb-5">
-			<div class="card" style="width:330px;">
-				<img class="card-img-top" src="img/dummy.jpg" alt="Card image cap">
-				<div class="card-body">
-					<h5 class="card-title">Lebron James</h5>
-					<p style="color: #17408b; font-weight: 600; font-size: 17px;">This is a secondary text</p>
-					<p class="card-text">Some quick <strong>example</strong> text to build on the card title and make up the bulk of the
-						card's
-						content.</p>
-					<button type="button" class="btn btn-primary w-100">Primary</button>
-					<button type="button" class="btn btn-danger w-100">Primary</button>
-					<button type="button" class="btn btn-dark w-100">Primary</button>
-				</div>
-			</div>
-		</div>
-
-		<p style="color: #ffffff;" class="text-center px-5 mb-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-			Inventore delectus fugit pariatur labore voluptatum autem veritatis dolores non doloribus sequi repudiandae
-			rerum architecto assumenda dolorum odit cumque hic dicta facilis molestias reprehenderit est, voluptate
-			repellat laudantium dignissimos. Commodi, quidem officia temporibus esse autem neque, corrupti reprehenderit
-			sunt, iusto cupiditate possimus. This is a test design.</p>
-
-		<div class="text-center mb-5">
-			<button type="button" class="btn btn-primary">Primary</button>
-			<button type="button" class="btn btn-outline-light">Primary</button>
-		</div>
-	</div>
-
-	<div class="py-3"
-		style="width: 100%; height: 400px; background-color: #17408b; box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.2);">
-		<h1 style="font-size: 72px; color: #ffffff;" class="mb-5 text-center"><strong>Welcome to the NBA Player Tracker Web App</strong>
-		</h1>
-
-		<p style="color: #ffffff;" class="text-center px-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-			Inventore delectus fugit pariatur labore voluptatum autem veritatis dolores non doloribus sequi repudiandae
-			rerum architecto assumenda dolorum odit cumque hic dicta facilis molestias reprehenderit est, voluptate
-			repellat laudantium dignissimos. Commodi, quidem officia temporibus esse autem neque, corrupti reprehenderit
-			sunt, iusto cupiditate possimus. This is a test design.</p>
-
-		<div class="text-center mb-5">
-			<button type="button" class="btn btn-danger">Primary</button>
-			<button type="button" class="btn btn-dark">Primary</button>
-		</div>
-	</div> -->
 
 	<!-- jQuery -->
 	<script src="js/jquery-3.5.1.min.js"></script>

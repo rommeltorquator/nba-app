@@ -51,8 +51,7 @@
             <div class="row">
                 <div class="col-2"></div>
                 <div class="col-8">
-                    <form class="p-4"
-                        style="background-color: #ffffff; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+                    <form class="p-4 card-players">
                         <div class="row">
                             <!-- player 1 -->
                             <div class="col-6">
@@ -91,7 +90,7 @@
     </div>
 
     <!-- no player found -->
-	<h3 id="no-players" style="color: #c9082a; font-weight: 200; display: none;" class="text-center mb-5">Invalid query</h3>
+	<h3 id="no-players" class="text-center mb-5 error-style">Invalid query</h3>
 
     <!-- players-profile
     p1-name
@@ -101,10 +100,11 @@
     p1-apg
     p1-fg -->
 
-    <div class="container" id="players-profile" style="display: none;">
+    <div class="container" id="players-profile">
         <div class="row">
             <div class="col-md-6">
-                <div class="card">
+                <!-- player 1 card -->
+                <div class="card card-1" style="display: none;">
                     <div class="card-body">
                         <h5 class="card-title text-center" id="p1-name">Lebron James</h5>
                         <p id="p1-team" class="text-center" style="color: #17408b; font-weight: 600; font-size: 17px;">Chicago Bulls</p>
@@ -113,19 +113,19 @@
     
                         <div class="row mb-3">
                             <div class="col-3">
-                                <h5 class="text-center mb-3" style="color: #c9082a;"><strong>PPG</strong></h5>
+                                <h5 class="text-center mb-3 text-red"><strong>PPG</strong></h5>
                                 <h6 id="p1-ppg" class="text-center">27.3</h6>
                             </div>
                             <div class="col-3">
-                                <h5 class="text-center mb-3" style="color: #c9082a;"><strong>RPG</strong></h5>
+                                <h5 class="text-center mb-3 text-red"><strong>RPG</strong></h5>
                                 <h6 id="p1-rpg" class="text-center">13.4</h6>
                             </div>
                             <div class="col-3">
-                                <h5 class="text-center mb-3" style="color: #c9082a;"><strong>APG</strong></h5>
+                                <h5 class="text-center mb-3 text-red"><strong>APG</strong></h5>
                                 <h6 id="p1-apg" class="text-center">9</h6>
                             </div>
                             <div class="col-3">
-                                <h5 class="text-center mb-3" style="color: #c9082a;"><strong>GP</strong></h5>
+                                <h5 class="text-center mb-3 text-red"><strong>GP</strong></h5>
                                 <h6 id="p1-fg" class="text-center">39%</h6>
                             </div>
                         </div>
@@ -137,9 +137,13 @@
                         </p>			
                     </div>
                 </div>
+
+                <!-- no available stats -->
+                <h3 id="no-player-1" class="text-center mb-5 error-style">No available stats for this season</h3>
             </div>
             <div class="col-md-6">
-                <div class="card">
+                <!-- player 2 card -->
+                <div class="card card-2" style="display: none;">
                     <div class="card-body">
                         <h5 class="card-title text-center" id="p2-name">Lebron James</h5>
                         <p id="p2-team" class="text-center" style="color: #17408b; font-weight: 600; font-size: 17px;">Chicago Bulls</p>
@@ -148,30 +152,33 @@
     
                         <div class="row mb-3">
                             <div class="col-3">
-                                <h5 class="text-center mb-3" style="color: #c9082a;"><strong>PPG</strong></h5>
+                                <h5 class="text-center mb-3 text-red"><strong>PPG</strong></h5>
                                 <h6 id="p2-ppg" class="text-center">27.3</h6>
                             </div>
                             <div class="col-3">
-                                <h5 class="text-center mb-3" style="color: #c9082a;"><strong>RPG</strong></h5>
+                                <h5 class="text-center mb-3 text-red"><strong>RPG</strong></h5>
                                 <h6 id="p2-rpg" class="text-center">13.4</h6>
                             </div>
                             <div class="col-3">
-                                <h5 class="text-center mb-3" style="color: #c9082a;"><strong>APG</strong></h5>
+                                <h5 class="text-center mb-3 text-red"><strong>APG</strong></h5>
                                 <h6 id="p2-apg" class="text-center">9</h6>
                             </div>
                             <div class="col-3">
-                                <h5 class="text-center mb-3" style="color: #c9082a;"><strong>GP</strong></h5>
+                                <h5 class="text-center mb-3 text-red"><strong>GP</strong></h5>
                                 <h6 id="p2-fg" class="text-center">39%</h6>
                             </div>
                         </div>
-
+                                                    
                         <p>
                             <button id="collapseButton" class="btn btn-primary w-100" type="button">
                                 Show more stats
                             </button>
-                        </p>
+                        </p>			
                     </div>
                 </div>
+
+                <!-- no available stats -->
+                <h3 id="no-player-2" class="text-center mb-5 error-style">No available stats for this season</h3>
             </div>
         </div>
     </div>

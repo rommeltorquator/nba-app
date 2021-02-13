@@ -21,12 +21,12 @@ if(document.getElementById('player-button') != null) {
 if(document.getElementById('players-button') !=null) {
     document.getElementById('players-button').addEventListener('click', (e) => {
         e.preventDefault()
-
+        
         // if form is empty
         let f1 = document.getElementById('playerFirst1').value
         let l1 = document.getElementById('playerLast1').value
         let f2 = document.getElementById('playerFirst2').value
-        let l2 = document.getElementById('playerLast2').value       
+        let l2 = document.getElementById('playerLast2').value   
         let name1
         let name2
         let p1Id = 0
@@ -166,7 +166,7 @@ async function getLast3Games() {
             "July", "August", "September", "October", "November", "December"];
         container += `                   
         <tr>
-            <td><strong>${monthNames[date.getMonth()]} ${date.getDate() + 2}, ${date.getFullYear()}</strong></td>
+            <td><strong>${monthNames[date.getMonth()]} ${date.getDate() + 1}, ${date.getFullYear()}</strong></td>
             <td>${x.game.visitor_team_id != x.player.team_id ? teamNames[x.game.visitor_team_id - 1].full_name : teamNames[x.game.home_team_id - 1].full_name}</td>
             <td><strong>${x.pts}</strong></td>
                 <td>${x.reb}</td>
@@ -269,72 +269,107 @@ async function getP2(f2, l2) {
     }    
 }
 
+async function getNextGame(id) {
+    // get the date for the next day
+    const today = new Date()
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    // console.log(tomorrow.getMonth(), tomorrow.getDate(), tomorrow.getFullYear())
+
+    res = await fetch(`https://www.balldontlie.io/api/v1/games?seasons[]=2020&team_ids[]=${id}&dates[]=%27${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}%27`)
+    data = await res.json()
+    // console.log(data.data)
+
+    if(data.data.length == 0) {
+        let container = ''
+        container += `
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <h3>No game for tomorrow</h3>
+                </div>
+            </div>
+        </div>
+        `
+        document.getElementById('team-modal').innerHTML = container
+    } else {
+        let monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+        let date = new Date(data.data[0].date)
+        let container = ''
+        container += `
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12 col-12 d-flex align-items-center justify-content-center">
+                    <img style="width: 140px; height: 100%;" src="img/${data.data[0].home_team.id != id ? data.data[0].home_team.id : data.data[0].visitor_team.id}.svg" alt="">
+                
+                    <div class="ml-5 pt-3">
+                        <h3 class="d-block">${monthNames[date.getMonth()]} ${date.getDate() + 1} ${date.getFullYear()}</h3>
+                        <h4 class="d-block">${data.data[0].home_team.id != id ? "@" : "VS"} <strong>${data.data[0].home_team.id != id ? data.data[0].home_team.full_name : data.data[0].visitor_team.full_name}</strong></h4>
+                        <p>${data.data[0].home_team.conference}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="col-12 d-flex justify-content-center">                
+                <p>This is an additional information about the match-up</p>
+            </div>
+        </div>
+        `
+        document.getElementById('team-modal').innerHTML = container
+    }
+}
+
 async function showTeams() {
     res = await fetch('https://www.balldontlie.io/api/v1/teams')
     data = await res.json()
     let container = ''
+    let container2 = ''
 
-    data.data.forEach(x => {
-        console.log(x)
-        container += `
-        <div class="d-flex shadow flex-column justify-content-center mb-4" style="width: 205px; height: 205px; background-color: #fff;">
-            <img class="d-block" style="width: 110px; margin: 0 auto;" src="img/${x.id}.svg" alt="">
+    // eastern conference
+    data.data.filter(x => x.conference == 'East').map(x => {
+        container2 += `
+        <div class="d-flex shadow flex-column justify-content-center mb-4 team-card-style">
+            <img class="d-block team-image" src="img/${x.id}.svg" alt="">
             <p class="text-center" style="font-weight: 600; font-size: 16px; margin-bottom: 4px;">${x.full_name}</p>
             <p class="text-center" style="color: ${x.conference == 'West' ? '#17408b' : '#c9082a'}; font-weight: 600; font-size: 14px; margin-bottom: 4px;">${x.conference}</p>
-            <p class="text-center" style="font-weight: 600; font-size: 11px; margin-bottom: 4px;">${x.division} Division</p> 
+            <p class="text-center" style="font-weight: 600; font-size: 11px; margin-bottom: 4px;">${x.division} Division</p>
+
+            <a onclick="getNextGame(${x.id})" data-toggle="modal" data-target="#exampleModal" class="text-center" style="font-size: 11px; color: #17408b; text-decoration: underline">Next game</a>
         </div>
         `
     })
 
+    // western conference
+    data.data.filter(x => x.conference == 'West').map(x => {
+        container += `
+        <div class="d-flex shadow flex-column justify-content-center mb-4 team-card-style">
+            <img class="d-block team-image" src="img/${x.id}.svg" alt="">
+            <p class="text-center" style="font-weight: 600; font-size: 16px; margin-bottom: 4px;">${x.full_name}</p>
+            <p class="text-center" style="color: ${x.conference == 'West' ? '#17408b' : '#c9082a'}; font-weight: 600; font-size: 14px; margin-bottom: 4px;">${x.conference}</p>
+            <p class="text-center" style="font-weight: 600; font-size: 11px; margin-bottom: 4px;">${x.division} Division</p>
+
+            <a onclick="getNextGame(${x.id})" data-toggle="modal" data-target="#exampleModal" class="text-center next-game-button" style="font-size: 11px; color: #17408b; text-decoration: underline">Next game</a>
+        </div>
+        `
+    })
+    
     if(document.getElementById('teams-row') != null) {
         document.getElementById('teams-row').innerHTML += container
     }
+
+    if(document.getElementById('teams-row-2') != null) {
+        document.getElementById('teams-row-2').innerHTML += container2
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// fetching data
-// const getData = fetch('https://www.balldontlie.io/api/v1/players/237').then(res => res.json()).then(data => {
-//     console.log(data.first_name)
-// })
-
-// sending data
-// const data = { username: 'example' };
-
-// fetch('https://example.com/profile', {
-//   method: 'POST', // or 'PUT'
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   body: JSON.stringify(data),
-// })
-// .then(response => {
-    //  if(response.ok) {
-    //     return response.json()
-    //  } else {
-    //     console.log('Error')
-    //  }
-// })
-// .then(data => {
-//   console.log('Success:', data);
-// })
-// .catch((error) => {
-//   console.error('Error:', error);
-// });

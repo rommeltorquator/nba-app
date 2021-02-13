@@ -23,7 +23,7 @@ next page for all games of 1 team - https://www.balldontlie.io/api/v1/games?seas
 
 to get a specific game - https://www.balldontlie.io/api/v1/games/350
 
-get a game of 1 team in a speficic date - https://www.balldontlie.io/api/v1/games?&team_ids[]=1&dates[]=%272017-11-20%27
+get a game of 1 team in a speficic date - https://www.balldontlie.io/api/v1/games?seasons[]=2020&team_ids[]=1&dates[]=%272021-02-04%27
 
 total games of 1 NBA team per date range - https://www.balldontlie.io/api/v1/games?team_ids[]=1&start_date=%272021-01-01%27&end_date=%272021-02-01%27
 

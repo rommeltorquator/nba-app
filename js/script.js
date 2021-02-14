@@ -47,16 +47,26 @@ if(document.getElementById('players-button') !=null) {
                 document.querySelector('.card-1').style.display = `none`
                 document.querySelector('.card-2').style.display = `none`
             } else {
-                document.getElementById('no-players').style.display = 'none'     
+                document.getElementById('no-players').style.display = 'none'
                 getP1(f1, l1)
                 getP2(f2, l2)
-            }            
+            }
         }
     })
 }
 
 let teamNames = []
 let playerId
+
+let p1Ppg = 0
+let p1Apg = 0
+let p1Rpg = 0
+let p1Gp = 0
+
+let p2Ppg = 0
+let p2Apg = 0
+let p2Rpg = 0
+let p2Gp = 0
 
 // get the team names
 getTeamNames()
@@ -121,7 +131,7 @@ function getStats() {
             document.getElementById('no-player').style.display = 'block'
             document.getElementById('no-player').innerText = 'No available stats for the current season'
         } else {
-            // console.log(data.data[0])
+            console.log(data.data[0])
             // season stats
             document.getElementById('ppg').innerText = data.data[0].pts.toFixed(1)
             document.getElementById('rpg').innerText = data.data[0].reb.toFixed(1)
@@ -213,10 +223,15 @@ async function getP1(f1, l1) {
                 document.querySelector('.card-1').style.display = `block`
                 document.getElementById('p1-name').textContent = `${first} ${last}`
                 document.getElementById('p1-team').textContent = `${team}`
-                document.getElementById('p1-ppg').textContent = data.data[0].pts
-                document.getElementById('p1-rpg').textContent = data.data[0].reb
-                document.getElementById('p1-apg').textContent = data.data[0].ast
+                document.getElementById('p1-ppg').textContent = data.data[0].pts.toFixed(1)
+                document.getElementById('p1-rpg').textContent = data.data[0].reb.toFixed(1)
+                document.getElementById('p1-apg').textContent = data.data[0].ast.toFixed(1)
                 document.getElementById('p1-fg').textContent = data.data[0].games_played
+
+                p1Ppg = data.data[0].pts
+                p1Rpg = data.data[0].reb
+                p1Apg = data.data[0].ast
+                p1Gp = data.data[0].games_played
             }
         })
         .catch(error => {
@@ -257,10 +272,69 @@ async function getP2(f2, l2) {
                 document.querySelector('.card-2').style.display = `block`
                 document.getElementById('p2-name').textContent = `${first} ${last}`
                 document.getElementById('p2-team').textContent = `${team}`
-                document.getElementById('p2-ppg').textContent = data.data[0].pts
-                document.getElementById('p2-rpg').textContent = data.data[0].reb
-                document.getElementById('p2-apg').textContent = data.data[0].ast
+                document.getElementById('p2-ppg').textContent = data.data[0].pts.toFixed(1)
+                document.getElementById('p2-rpg').textContent = data.data[0].reb.toFixed(1)
+                document.getElementById('p2-apg').textContent = data.data[0].ast.toFixed(1)
                 document.getElementById('p2-fg').textContent = data.data[0].games_played
+
+                p2Ppg = data.data[0].pts
+                p2Rpg = data.data[0].reb
+                p2Apg = data.data[0].ast
+                p2Gp = data.data[0].games_played   
+                                
+                p1Ppg = Number(p1Ppg)
+                p1Rpg = Number(p1Rpg)
+                p1Apg = Number(p1Apg)
+                p1Gp = Number(p1Gp)
+                
+                p2Ppg = Number(p2Ppg)
+                p2Rpg = Number(p2Rpg)
+                p2Apg = Number(p2Apg)
+                p2Gp = Number(p2Gp)
+
+                // console.log(p1Ppg, p1Rpg, p1Apg, p1Gp)
+                // console.log(p2Ppg, p2Rpg, p2Apg, p2Gp)
+
+                // points
+                if(p1Ppg > p2Ppg) {
+                    document.getElementById('p1-ppg').style.fontWeight = 'bold'
+                } else if(p1Ppg == p2Ppg) {
+                    document.getElementById('p1-ppg').style.fontWeight = 'bold'
+                    document.getElementById('p2-ppg').style.fontWeight = 'bold'
+                } else {
+                    document.getElementById('p2-ppg').style.fontWeight = 'bold'
+                }
+
+                // rebounds
+                if(p1Rpg > p2Rpg) {
+                    document.getElementById('p1-rpg').style.fontWeight = 'bold'
+                } else if(p1Rpg == p2Rpg) {
+                    document.getElementById('p1-rpg').style.fontWeight = 'bold'
+                    document.getElementById('p2-rpg').style.fontWeight = 'bold'
+                } else {
+                    document.getElementById('p2-rpg').style.fontWeight = 'bold'
+                }
+
+                // assists
+                if(p1Apg > p2Apg) {
+                    document.getElementById('p1-apg').style.fontWeight = 'bold'
+                } else if(p1Apg == p2Apg) {
+                    document.getElementById('p1-apg').style.fontWeight = 'bold'
+                    document.getElementById('p2-apg').style.fontWeight = 'bold'
+                } else {
+                    document.getElementById('p2-apg').style.fontWeight = 'bold'
+                }
+
+                // games played
+                if(p1Gp > p2Gp) {
+                    document.getElementById('p1-fg').style.fontWeight = 'bold'
+                }
+                else if(p1Gp == p2Gp) {
+                    document.getElementById('p1-fg').style.fontWeight = 'bold'
+                    document.getElementById('p2-fg').style.fontWeight = 'bold'
+                } else {
+                    document.getElementById('p2-fg').style.fontWeight = 'bold'
+                }
             }
         })
         .catch(error => {
@@ -278,6 +352,7 @@ async function getNextGame(id) {
 
     res = await fetch(`https://www.balldontlie.io/api/v1/games?seasons[]=2020&team_ids[]=${id}&dates[]=%27${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}%27`)
     data = await res.json()
+
     // console.log(data.data)
 
     if(data.data.length == 0) {
@@ -314,16 +389,16 @@ async function getNextGame(id) {
                     <img style="width: 140px; height: 100%;" src="img/${data.data[0].home_team.id != id ? data.data[0].home_team.id : data.data[0].visitor_team.id}.svg" alt="">
                 
                     <div class="ml-5 pt-3">
-                        <h3 class="d-block">${monthNames[date.getMonth()]} ${date.getDate() + 1} ${date.getFullYear()}</h3>
+                        <h3 class="d-block"><strong>${monthNames[date.getMonth()]}</strong> ${date.getDate() + 1}, ${date.getFullYear()}</h3>
                         <h4 class="d-block">${data.data[0].home_team.id != id ? "@" : "VS"} <strong>${data.data[0].home_team.id != id ? data.data[0].home_team.full_name : data.data[0].visitor_team.full_name}</strong></h4>
-                        <p>${data.data[0].home_team.conference}</p>
+                        <p style="color: ${data.data[0].home_team.conference == 'West' ? '#c9082a' : '#17408b'}">${data.data[0].home_team.conference}</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
             <div class="col-12 d-flex justify-content-center">                
-                <p>This is an additional information about the match-up</p>
+                <p><strong>${data.data[0].status}</strong></p>
             </div>
         </div>
         `

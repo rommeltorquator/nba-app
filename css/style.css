@@ -87,6 +87,10 @@ table, tr, th, td {
   color: #212529;
 }
 
+.font-blue {
+  color: #17408b;
+}
+
 .form-player {
   display: block; 
   margin: 0 auto; 

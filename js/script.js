@@ -50,6 +50,26 @@ if(document.getElementById('players-button') !=null) {
                 document.getElementById('no-players').style.display = 'none'
                 getP1(f1, l1)
                 getP2(f2, l2)
+
+                document.getElementById('p1-ppg').style.fontWeight = 'normal'
+                document.getElementById('p1-rpg').style.fontWeight = 'normal'
+                document.getElementById('p1-apg').style.fontWeight = 'normal'
+                document.getElementById('p1-fg').style.fontWeight = 'normal'
+
+                document.getElementById('p2-ppg').style.fontWeight = 'normal'
+                document.getElementById('p2-rpg').style.fontWeight = 'normal'
+                document.getElementById('p2-apg').style.fontWeight = 'normal'
+                document.getElementById('p2-fg').style.fontWeight = 'normal'
+
+                document.getElementById('p1-min').style.fontWeight = 'normal'
+                document.getElementById('p1-fgm').style.fontWeight = 'normal'
+                document.getElementById('p1-fga').style.fontWeight = 'normal'
+                document.getElementById('p1-fg-pct').style.fontWeight = 'normal'
+
+                document.getElementById('p2-min').style.fontWeight = 'normal'
+                document.getElementById('p2-fgm').style.fontWeight = 'normal'
+                document.getElementById('p2-fga').style.fontWeight = 'normal'
+                document.getElementById('p2-fg-pct').style.fontWeight = 'normal'
             }
         }
     })
@@ -63,10 +83,20 @@ let p1Apg = 0
 let p1Rpg = 0
 let p1Gp = 0
 
+let p1Min = 0
+let p1Fgm = 0
+let p1Fga = 0
+let p1FgPct = 0
+
 let p2Ppg = 0
 let p2Apg = 0
 let p2Rpg = 0
 let p2Gp = 0
+
+let p2Min = 0
+let p2Fgm = 0
+let p2Fga = 0
+let p2FgPct = 0
 
 // get the team names
 getTeamNames()
@@ -137,6 +167,10 @@ function getStats() {
             document.getElementById('rpg').innerText = data.data[0].reb.toFixed(1)
             document.getElementById('apg').innerText = data.data[0].ast.toFixed(1)
             document.getElementById('fg').innerText = data.data[0].games_played
+            document.getElementById('min').innerText = data.data[0].min
+            document.getElementById('fgm').innerText = data.data[0].fgm.toFixed(1)
+            document.getElementById('fga').innerText = data.data[0].fga.toFixed(1)
+            document.getElementById('fg-pct').innerText = (data.data[0].fg_pct * 100)
             document.getElementById('player-profile').style.display = 'block'
         }
     })
@@ -228,10 +262,22 @@ async function getP1(f1, l1) {
                 document.getElementById('p1-apg').textContent = data.data[0].ast.toFixed(1)
                 document.getElementById('p1-fg').textContent = data.data[0].games_played
 
+                document.getElementById('p1-min').textContent = data.data[0].min
+                document.getElementById('p1-fgm').textContent = data.data[0].fgm.toFixed(1)
+                document.getElementById('p1-fga').textContent = data.data[0].fga.toFixed(1)
+                document.getElementById('p1-fg-pct').textContent = (data.data[0].fg_pct * 100).toFixed(1)
+
                 p1Ppg = data.data[0].pts
                 p1Rpg = data.data[0].reb
                 p1Apg = data.data[0].ast
                 p1Gp = data.data[0].games_played
+
+                p1Min = data.data[0].min
+                p1Fgm = data.data[0].fgm
+                p1Fga = data.data[0].fga
+                p1FgPct = data.data[0].fg_pct
+
+                console.log(p1Ppg, p1Rpg, p1Apg, p1Gp, p1Min, p1Fgm, p1Fga, p1FgPct)
             }
         })
         .catch(error => {
@@ -277,23 +323,42 @@ async function getP2(f2, l2) {
                 document.getElementById('p2-apg').textContent = data.data[0].ast.toFixed(1)
                 document.getElementById('p2-fg').textContent = data.data[0].games_played
 
+                document.getElementById('p2-min').textContent = data.data[0].min
+                document.getElementById('p2-fgm').textContent = data.data[0].fgm.toFixed(1)
+                document.getElementById('p2-fga').textContent = data.data[0].fga.toFixed(1)
+                document.getElementById('p2-fg-pct').textContent = (data.data[0].fg_pct * 100).toFixed(1)
+
                 p2Ppg = data.data[0].pts
                 p2Rpg = data.data[0].reb
                 p2Apg = data.data[0].ast
                 p2Gp = data.data[0].games_played   
-                                
-                p1Ppg = Number(p1Ppg)
-                p1Rpg = Number(p1Rpg)
-                p1Apg = Number(p1Apg)
-                p1Gp = Number(p1Gp)
-                
-                p2Ppg = Number(p2Ppg)
-                p2Rpg = Number(p2Rpg)
-                p2Apg = Number(p2Apg)
-                p2Gp = Number(p2Gp)
 
-                // console.log(p1Ppg, p1Rpg, p1Apg, p1Gp)
-                // console.log(p2Ppg, p2Rpg, p2Apg, p2Gp)
+                p2Min = data.data[0].min
+                p2Fgm = data.data[0].fgm
+                p2Fga = data.data[0].fga
+                p2FgPct = data.data[0].fg_pct
+
+                // p1
+                                
+                p1Ppg = Number(p1Ppg).toFixed(1)
+                p1Rpg = Number(p1Rpg).toFixed(1)
+                p1Apg = Number(p1Apg).toFixed(1)
+                p1Gp = Number(p1Gp).toFixed(1)
+                
+                p1Fgm = Number(p1Fgm)
+                p1Fga = Number(p1Fga)
+
+                // p2
+                
+                p2Ppg = Number(p2Ppg).toFixed(1)
+                p2Rpg = Number(p2Rpg).toFixed(1)
+                p2Apg = Number(p2Apg).toFixed(1)
+                p2Gp = Number(p2Gp).toFixed(1)
+
+                p2Fgm = Number(p2Fgm)
+                p2Fga = Number(p2Fga)
+                
+                console.log(p2Ppg, p2Rpg, p2Apg, p2Gp, p2Min, p2Fgm, p2Fga, p2FgPct)
 
                 // points
                 if(p1Ppg > p2Ppg) {
@@ -335,6 +400,46 @@ async function getP2(f2, l2) {
                 } else {
                     document.getElementById('p2-fg').style.fontWeight = 'bold'
                 }
+
+                // // min
+                // if(p1Min < p2Min ) {
+                //     document.getElementById('p1-min').style.fontWeight = 'bold'
+                // } else if (p1Min == p2Min) {
+                //     document.getElementById('p1-min').style.fontWeight = 'bold'
+                //     document.getElementById('p2-min').style.fontWeight = 'bold'
+                // } else {
+                //     document.getElementById('p2-min').style.fontWeight = 'bold'
+                // }
+
+                // fgm
+                if(p1Fgm > p2Fgm) {
+                    document.getElementById('p1-fgm').style.fontWeight = 'bold'
+                } else if(p1Fgm == p2Fgm) {
+                    document.getElementById('p1-fgm').style.fontWeight = 'bold'
+                    document.getElementById('p2-fgm').style.fontWeight = 'bold'
+                } else {
+                    document.getElementById('p2-fgm').style.fontWeight = 'bold'
+                }
+
+                // fga
+                if(p1Fga > p2Fga) {
+                    document.getElementById('p1-fga').style.fontWeight = 'bold'
+                } else if(p1Fga == p2Fga) {
+                    document.getElementById('p1-fga').style.fontWeight = 'bold'
+                    document.getElementById('p2-fga').style.fontWeight = 'bold'
+                } else {
+                    document.getElementById('p2-fga').style.fontWeight = 'bold'
+                }
+
+                // fg-pct
+                if(p1FgPct > p2FgPct) {
+                    document.getElementById('p1-fg-pct').style.fontWeight = 'bold'
+                } else if(p1FgPct == p2FgPct) {
+                    document.getElementById('p1-fg-pct').style.fontWeight = 'bold'
+                    document.getElementById('p2-fg-pct').style.fontWeight = 'bold'
+                } else {
+                    document.getElementById('p2-fg-pct').style.fontWeight = 'bold'
+                }
             }
         })
         .catch(error => {
@@ -353,7 +458,7 @@ async function getNextGame(id) {
     res = await fetch(`https://www.balldontlie.io/api/v1/games?seasons[]=2020&team_ids[]=${id}&dates[]=%27${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}%27`)
     data = await res.json()
 
-    // console.log(data.data)
+    console.log(data.data)
 
     if(data.data.length == 0) {
         let container = ''
@@ -376,9 +481,10 @@ async function getNextGame(id) {
         let monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"];
         let date = new Date(data.data[0].date)
-        let container = ''
+        let container = ''        
         container += `
         <div class="modal-header">
+            <strong>${data.data[0].home_team.id == id ? data.data[0].home_team.full_name : data.data[0].visitor_team.full_name}</strong>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -391,7 +497,7 @@ async function getNextGame(id) {
                     <div class="ml-5 pt-3">
                         <h3 class="d-block"><strong>${monthNames[date.getMonth()]}</strong> ${date.getDate() + 1}, ${date.getFullYear()}</h3>
                         <h4 class="d-block">${data.data[0].home_team.id != id ? "@" : "VS"} <strong>${data.data[0].home_team.id != id ? data.data[0].home_team.full_name : data.data[0].visitor_team.full_name}</strong></h4>
-                        <p style="color: ${data.data[0].home_team.conference == 'West' ? '#c9082a' : '#17408b'}">${data.data[0].home_team.conference}</p>
+                        <p id="opponent-conference">${data.data[0].home_team.id != id ? data.data[0].home_team.conference : data.data[0].visitor_team.conference}ern Conference</p>
                     </div>
                 </div>
             </div>

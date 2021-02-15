@@ -43,20 +43,23 @@
 	</nav>
 
 	<div class="text-center my-5">
-		<h1 class="mb-5 main-heading"><img class="mb-2 img-logo" src="img/logo.png" alt=""> <strong>NBA Player Tracker
-				Web App</strong></h1>
+		<h1 class="mb-5 main-heading"><img class="mb-2 img-logo" src="img/logo.png" alt=""> 
+			<strong>NBA Player Tracker Web App</strong>
+		</h1>
 	</div>
-	
+
 	<div class="bg-dark shadow mb-5 py-4">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-2 col-sm-2 col-xs-3"></div>
 				<div class="col-md-8 col-sm-8 col-xs-7">
-					<h2 class="font-light text-center mb-4"><strong>Enter the player's full name</strong></h2>	
-					<form class="form-inline d-flex justify-content-center">					
+					<h2 class="font-light text-center mb-4"><strong>Enter the player's full name</strong></h2>
+					<form class="form-inline d-flex justify-content-center">
 						<label class="sr-only" for="fullName">Full name</label>
-						<input required type="text" class="form-control mb-2 mr-sm-2 player-input" id="firstName1" placeholder="First name">		
-						<input required type="text" class="form-control mb-2 mr-sm-2 player-input" id="lastName1" placeholder="Last name">
+						<input required type="text" class="form-control mb-2 mr-sm-2 player-input" id="firstName1"
+							placeholder="First name">
+						<input required type="text" class="form-control mb-2 mr-sm-2 player-input" id="lastName1"
+							placeholder="Last name">
 
 						<button type="button" class="btn btn-danger mb-2" id="player-button">
 							Submit
@@ -75,7 +78,7 @@
 	<div class="container" id="player-profile" style="display: none;">
 		<div class="row">
 			<div class="col-md-3"></div>
-			<div class="col-md-6">				
+			<div class="col-md-6">
 				<div class="d-flex justify-content-center mb-5">
 					<div class="card w-100">
 						<div class="card-body">
@@ -101,14 +104,35 @@
 									<h5 class="text-center mb-3 text-red"><strong>GP</strong></h5>
 									<h6 id="fg" class="text-center">39%</h6>
 								</div>
-							</div>
-														
+							</div>	
+							
+							<!-- <hr> -->
+
+							<div class="row mb-3">
+								<div class="col-3">
+									<h5 class="text-center mb-3 text-red"><strong>MIN</strong></h5>
+									<h6 id="min" class="text-center">27.3</h6>
+								</div>
+								<div class="col-3">
+									<h5 class="text-center mb-3 text-red"><strong>FGM</strong></h5>
+									<h6 id="fgm" class="text-center">13.4</h6>
+								</div>
+								<div class="col-3">
+									<h5 class="text-center mb-3 text-red"><strong>FGA</strong></h5>
+									<h6 id="fga" class="text-center">9</h6>
+								</div>
+								<div class="col-3">
+									<h5 class="text-center mb-3 text-red"><strong>FG%</strong></h5>
+									<h6 id="fg-pct" class="text-center">39%</h6>
+								</div>
+							</div>	
 							<p>
-								<button id="collapseButton" class="btn btn-primary w-100" type="button" data-toggle="collapse" data-target="#collapseExample"
-									aria-expanded="false" aria-controls="collapseExample">
+								<button id="collapseButton" class="btn btn-primary w-100" type="button"
+									data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+									aria-controls="collapseExample">
 									Last 3 games
 								</button>
-							</p>			
+							</p>
 						</div>
 					</div>
 				</div>
@@ -123,7 +147,7 @@
 	<!-- collapse -->
 	<div class="collapse" id="collapseExample">
 		<div class="bg-dark">
-			<div id="table-container" class="container py-4">	
+			<div id="table-container" class="container py-4">
 				<h5 class="font-light mb-3"><strong>Last 3 games</strong></h5>
 				<table class="table w-100">
 					<thead class="thead-dark">

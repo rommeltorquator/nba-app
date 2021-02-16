@@ -2,6 +2,7 @@ $('#collapseExample').on('shown.bs.collapse', function () {
     // do something...
     document.getElementById('collapseButton').innerText = "Hide"
     // document.getElementById('last-3').classList.add('py-4')
+    document.getElementById('collapseExample').scrollIntoView()
 })
 
 $('#collapseExample').on('hidden.bs.collapse', function () {
@@ -70,6 +71,26 @@ if(document.getElementById('players-button') !=null) {
                 document.getElementById('p2-fgm').style.fontWeight = 'normal'
                 document.getElementById('p2-fga').style.fontWeight = 'normal'
                 document.getElementById('p2-fg-pct').style.fontWeight = 'normal'
+
+                p1Ppg = 0
+                p1Apg = 0
+                p1Rpg = 0
+                p1Gp = 0
+
+                p1Min = 0
+                p1Fgm = 0
+                p1Fga = 0
+                p1FgPct = 0
+
+                p2Ppg = 0
+                p2Apg = 0
+                p2Rpg = 0
+                p2Gp = 0
+
+                p2Min = 0
+                p2Fgm = 0
+                p2Fga = 0
+                p2FgPct = 0
             }
         }
     })
@@ -124,29 +145,40 @@ function getPlayer() {
         }
         
         fetch(`https://www.balldontlie.io/api/v1/players?search=${first}%20${last}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.data.length < 1) {
-                    // if no record found
-                    document.getElementById('no-player').style.display = 'block'
-                    document.getElementById('no-player').innerText = 'Player not found'
-                    document.getElementById('player-profile').style.display = 'none'
-                    // document.getElementById('collapseExample').style.display = 'block'
-                } else {
-                    // console.log(data.data[0])
-                    // individual player
-                    playerId = parseInt(data.data[0].id)
-                    document.getElementById('full-name').innerText = `${data.data[0].first_name} ${data.data[0].last_name}`
-                    document.getElementById('team').innerText = `${data.data[0].team.full_name}`
-                    document.getElementById('no-player').style.display = 'none'
-                    
-                    getLast3Games()
-                    getStats()
-                }
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        .then(res => res.json())
+        .then(data => {
+            if (data.data.length < 1) {
+                // if no record found
+                document.getElementById('no-player').style.display = 'block'
+                document.getElementById('no-player').innerText = 'Player not found'
+                document.getElementById('player-profile').style.display = 'none'
+                // document.getElementById('collapseExample').style.display = 'block'
+            } else {
+                // console.log(data.data[0])
+                // individual player
+                playerId = parseInt(data.data[0].id)
+                document.getElementById('full-name').innerText = `${data.data[0].first_name} ${data.data[0].last_name}`
+                document.getElementById('team').innerText = `${data.data[0].team.full_name} - 2020-21`
+                document.getElementById('no-player').style.display = 'none'
+
+                // data.data[0].team.id
+                
+                getLast3Games()
+                getStats()
+
+                // get the next games
+                // fetch(`https://www.balldontlie.io/api/v1/games?seasons[]=2020&team_ids[]=${data.data[0].team.id}`)
+                // .then(res => res.json())
+                // .then(data => {
+                //     data.data.map(x => {
+                //         console.log(x.status)
+                //     })
+                // })
+            }
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
 }
 
@@ -161,7 +193,7 @@ function getStats() {
             document.getElementById('no-player').style.display = 'block'
             document.getElementById('no-player').innerText = 'No available stats for the current season'
         } else {
-            console.log(data.data[0])
+            // console.log(data.data[0])
             // season stats
             document.getElementById('ppg').innerText = data.data[0].pts.toFixed(1)
             document.getElementById('rpg').innerText = data.data[0].reb.toFixed(1)
@@ -170,7 +202,7 @@ function getStats() {
             document.getElementById('min').innerText = data.data[0].min
             document.getElementById('fgm').innerText = data.data[0].fgm.toFixed(1)
             document.getElementById('fga').innerText = data.data[0].fga.toFixed(1)
-            document.getElementById('fg-pct').innerText = (data.data[0].fg_pct * 100)
+            document.getElementById('fg-pct').innerText = (data.data[0].fg_pct * 100).toFixed(1)
             document.getElementById('player-profile').style.display = 'block'
         }
     })
@@ -190,7 +222,7 @@ async function getLast3Games() {
     res = await fetch(`https://www.balldontlie.io/api/v1/stats?seasons[]=2020&player_ids[]=${playerId}`)
     // previous games of individual player
     data = await res.json()
-                        
+
     // previous games in descending order
     const arr1 = data.data
     arr1.sort((a, b) => {
@@ -275,9 +307,7 @@ async function getP1(f1, l1) {
                 p1Min = data.data[0].min
                 p1Fgm = data.data[0].fgm
                 p1Fga = data.data[0].fga
-                p1FgPct = data.data[0].fg_pct
-
-                console.log(p1Ppg, p1Rpg, p1Apg, p1Gp, p1Min, p1Fgm, p1Fga, p1FgPct)
+                p1FgPct = data.data[0].fg_pct                
             }
         })
         .catch(error => {
@@ -312,26 +342,10 @@ async function getP2(f2, l2) {
                 document.getElementById('no-player-2').style.display = 'block'
                 document.getElementById('no-player-2').innerText = 'No available stats for the current season'
             } else {
-                // console.log(data.data[0])
-                // season stats
-                document.getElementById('no-player-2').style.display = 'none'
-                document.querySelector('.card-2').style.display = `block`
-                document.getElementById('p2-name').textContent = `${first} ${last}`
-                document.getElementById('p2-team').textContent = `${team}`
-                document.getElementById('p2-ppg').textContent = data.data[0].pts.toFixed(1)
-                document.getElementById('p2-rpg').textContent = data.data[0].reb.toFixed(1)
-                document.getElementById('p2-apg').textContent = data.data[0].ast.toFixed(1)
-                document.getElementById('p2-fg').textContent = data.data[0].games_played
-
-                document.getElementById('p2-min').textContent = data.data[0].min
-                document.getElementById('p2-fgm').textContent = data.data[0].fgm.toFixed(1)
-                document.getElementById('p2-fga').textContent = data.data[0].fga.toFixed(1)
-                document.getElementById('p2-fg-pct').textContent = (data.data[0].fg_pct * 100).toFixed(1)
-
                 p2Ppg = data.data[0].pts
                 p2Rpg = data.data[0].reb
                 p2Apg = data.data[0].ast
-                p2Gp = data.data[0].games_played   
+                p2Gp = data.data[0].games_played
 
                 p2Min = data.data[0].min
                 p2Fgm = data.data[0].fgm
@@ -340,24 +354,25 @@ async function getP2(f2, l2) {
 
                 // p1
                                 
-                p1Ppg = Number(p1Ppg).toFixed(1)
-                p1Rpg = Number(p1Rpg).toFixed(1)
-                p1Apg = Number(p1Apg).toFixed(1)
-                p1Gp = Number(p1Gp).toFixed(1)
+                p1Ppg = Number(p1Ppg)
+                p1Rpg = Number(p1Rpg)
+                p1Apg = Number(p1Apg)
+                p1Gp = Number(p1Gp)
                 
                 p1Fgm = Number(p1Fgm)
                 p1Fga = Number(p1Fga)
 
                 // p2
                 
-                p2Ppg = Number(p2Ppg).toFixed(1)
-                p2Rpg = Number(p2Rpg).toFixed(1)
-                p2Apg = Number(p2Apg).toFixed(1)
-                p2Gp = Number(p2Gp).toFixed(1)
+                p2Ppg = Number(p2Ppg)
+                p2Rpg = Number(p2Rpg)
+                p2Apg = Number(p2Apg)
+                p2Gp = Number(p2Gp)
 
                 p2Fgm = Number(p2Fgm)
                 p2Fga = Number(p2Fga)
                 
+                console.log(p1Ppg, p1Rpg, p1Apg, p1Gp, p1Min, p1Fgm, p1Fga, p1FgPct)
                 console.log(p2Ppg, p2Rpg, p2Apg, p2Gp, p2Min, p2Fgm, p2Fga, p2FgPct)
 
                 // points
@@ -440,6 +455,23 @@ async function getP2(f2, l2) {
                 } else {
                     document.getElementById('p2-fg-pct').style.fontWeight = 'bold'
                 }
+
+                // console.log(data.data[0])
+                // season stats
+
+                document.getElementById('no-player-2').style.display = 'none'
+                document.querySelector('.card-2').style.display = `block`
+                document.getElementById('p2-name').textContent = `${first} ${last}`
+                document.getElementById('p2-team').textContent = `${team}`
+                document.getElementById('p2-ppg').textContent = data.data[0].pts.toFixed(1)
+                document.getElementById('p2-rpg').textContent = data.data[0].reb.toFixed(1)
+                document.getElementById('p2-apg').textContent = data.data[0].ast.toFixed(1)
+                document.getElementById('p2-fg').textContent = data.data[0].games_played
+
+                document.getElementById('p2-min').textContent = data.data[0].min
+                document.getElementById('p2-fgm').textContent = data.data[0].fgm.toFixed(1)
+                document.getElementById('p2-fga').textContent = data.data[0].fga.toFixed(1)
+                document.getElementById('p2-fg-pct').textContent = (data.data[0].fg_pct * 100).toFixed(1)
             }
         })
         .catch(error => {
@@ -471,7 +503,7 @@ async function getNextGame(id) {
         <div class="modal-body">
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">
-                    <h3>No game for tomorrow</h3>
+                    <h3>No upcoming game</h3>
                 </div>
             </div>
         </div>
@@ -504,7 +536,7 @@ async function getNextGame(id) {
         </div>
         <div class="modal-footer">
             <div class="col-12 d-flex justify-content-center">                
-                <p><strong>${data.data[0].status}</strong></p>
+                <p><strong>${data.data[0].status}</strong> ${data.data[0].time == "" ? "" : `- ${data.data[0].time}`}</p>
             </div>
         </div>
         `

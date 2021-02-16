@@ -11,6 +11,10 @@ dark gray - #222222 */
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #f9f6f7;
   line-height: 1.6;

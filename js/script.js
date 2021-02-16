@@ -98,6 +98,7 @@ if(document.getElementById('players-button') !=null) {
 
 let teamNames = []
 let playerId
+let playerTeamId
 
 let p1Ppg = 0
 let p1Apg = 0
@@ -157,6 +158,7 @@ function getPlayer() {
                 // console.log(data.data[0])
                 // individual player
                 playerId = parseInt(data.data[0].id)
+                playerTeamId = data.data[0].team.id
                 document.getElementById('full-name').innerText = `${data.data[0].first_name} ${data.data[0].last_name}`
                 document.getElementById('team').innerText = `${data.data[0].team.full_name} - 2020-21`
                 document.getElementById('no-player').style.display = 'none'
@@ -166,14 +168,45 @@ function getPlayer() {
                 getLast3Games()
                 getStats()
 
-                // get the next games
-                // fetch(`https://www.balldontlie.io/api/v1/games?seasons[]=2020&team_ids[]=${data.data[0].team.id}`)
-                // .then(res => res.json())
-                // .then(data => {
-                //     data.data.map(x => {
-                //         console.log(x.status)
-                //     })
-                // })
+                let pendingGames = []
+                let sortedGames = []
+
+                // get the 7th day to this day
+                let today = new Date()
+                let tomorrow = new Date(today)
+                tomorrow.setDate(tomorrow.getDate() + 1)
+
+                let thirdDay = new Date(tomorrow)
+                thirdDay.setDate(thirdDay.getDate() + 1)
+
+                let fourthDay = new Date(thirdDay)
+                fourthDay.setDate(fourthDay.getDate() + 1)
+
+                let fifthDay = new Date(fourthDay)
+                fifthDay.setDate(fifthDay.getDate() + 1)
+
+                let sixthDay = new Date(fifthDay)
+                sixthDay.setDate(sixthDay.getDate() + 1)
+
+                let seventhDay = new Date(sixthDay)
+                seventhDay.setDate(seventhDay.getDate() + 1)
+
+                // console.log(today.getMonth(), today.getDate(), today.getFullYear())
+
+                // get the next 3 games of the selected player's team
+                fetch(`https://www.balldontlie.io/api/v1/games?team_ids[]=${playerTeamId}&start_date=%27${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}%27&end_date=%27${seventhDay.getFullYear()}-${seventhDay.getMonth() + 1}-${seventhDay.getDate()}%27`)
+                .then(res => res.json())
+                .then(data => {
+                    data.data.forEach(x => {
+                        if(x.status != 'Final') {
+                            pendingGames.push(x)
+                        }
+                    })
+                    pendingGames.sort((a, b) => {
+                        return a.id - b.id
+                    })
+                    console.log(pendingGames)
+                })
             }
         })
         .catch(error => {

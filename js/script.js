@@ -126,7 +126,6 @@ getTeamNames()
 // show all current nba teams
 showTeams()
 
-
 // ***** functions ***** //
 
 // get the individual player
@@ -143,6 +142,7 @@ function getPlayer() {
     } else {
         if(document.getElementById('player-table').childElementCount > 0) {
             document.getElementById('player-table').innerHTML = ''
+            document.getElementById('next-3-games').innerHTML = ''
         }
         
         fetch(`https://www.balldontlie.io/api/v1/players?search=${first}%20${last}`)
@@ -197,15 +197,37 @@ function getPlayer() {
                 fetch(`https://www.balldontlie.io/api/v1/games?team_ids[]=${playerTeamId}&start_date=%27${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}%27&end_date=%27${seventhDay.getFullYear()}-${seventhDay.getMonth() + 1}-${seventhDay.getDate()}%27`)
                 .then(res => res.json())
                 .then(data => {
+                    let monthNames = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"];
                     data.data.forEach(x => {
-                        if(x.status != 'Final') {
+                        if(x.status != 'Final' && x.period == 0) {
                             pendingGames.push(x)
                         }
                     })
                     pendingGames.sort((a, b) => {
                         return a.id - b.id
                     })
+
+                    let container = ''
+
+                    pendingGames.forEach(x => {
+                        let today = new Date(x.date)
+                        today.setDate(today.getDate() + 1)
+
+                        // tomorrow.setDate(tomorrow.getDate() + 1)
+
+                        container += `<p style="font-size: 13px;" class="text-center"><strong>${monthNames[today.getMonth()]}</strong> ${today.getDate()}, ${today.getFullYear()} <strong>${x.home_team.id == playerTeamId ? "VS" : "@"}</strong> <strong><span class="font-blue">${x.home_team.id == playerTeamId ? x.visitor_team.name : x.home_team.name}</span></strong> <strong>${x.status}</strong></p>`
+
+                    })
+                    document.getElementById('next-3-games').innerHTML += container
+
+                    // console.log(`${monthNames[today1.getMonth() + 1]} ${today1.getDate()}, ${today1.getFullYear()}`, '@', pendingGames[0].visitor_team.full_name)
+
+                    // document.getElementById('next-3-games').innerHTML = `<p style="font-size: 13px;" class="text-center"><strong>${monthNames[today1.getMonth()]}</strong> ${today1.getDate()}, ${today1.getFullYear()} ${pendingGames[0].home_team.id == playerTeamId ? "VS" : "@"} ${pendingGames[0].home_team.id == playerTeamId ? pendingGames[0].visitor_team.name : pendingGames[0].home_team.name} <strong>${pendingGames[0].status}</strong></p>`
+
                     console.log(pendingGames)
+                    // console.log(pendingGames[0].date)
+                    // console.log(monthNames[today1.getMonth()], today1.getDate() + 1, today1.getFullYear())
                 })
             }
         })
@@ -546,10 +568,10 @@ async function getNextGame(id) {
         let monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"];
         let date = new Date(data.data[0].date)
-        let container = ''        
+        let container = ''
         container += `
         <div class="modal-header">
-            <strong>${data.data[0].home_team.id == id ? data.data[0].home_team.full_name : data.data[0].visitor_team.full_name}</strong>
+            ${data.data[0].home_team.id == id ? data.data[0].home_team.full_name : data.data[0].visitor_team.full_name}
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -567,12 +589,35 @@ async function getNextGame(id) {
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <div class="col-12 d-flex justify-content-center">                
-                <p><strong>${data.data[0].status}</strong> ${data.data[0].time == "" ? "" : `- ${data.data[0].time}`}</p>
+        <div class="modal-footer d-flex justify-content-center">
+            <div id="live-score" style="width: 100%; display: ${data.data[0].period != 0 ? "block" : "none"};">
+                <p style="margin-bottom: 0" class="text-center"><span class="font-blue">${data.data[0].home_team.name}</span> - <strong>${data.data[0].home_team_score}</strong></p>
+                <p style="margin-bottom: 0" class="text-center"><span class="font-blue">${data.data[0].visitor_team.name}</span> - <strong>${data.data[0].visitor_team_score}</strong></p>
             </div>
+            <p style="display:block;"><strong>${data.data[0].status}</strong> ${data.data[0].time == "" ? "" : `- ${data.data[0].time}`}</p>
         </div>
         `
+        // <div class="col-12 d-flex justify-content-center">      
+        //         <p>${data.data[0].home_team.name}: ${data.data[0].home_team_score} ${data.data[0].visitor_team.name}:${data.data[0].visitor_team_score}</p>
+        //         <p><strong>${data.data[0].status}</strong> ${data.data[0].time == "" ? "" : `- ${data.data[0].time}`}</p>
+                
+        // </div>
+
+        // <div class="row">
+        //     <div class="col-6">
+        //         <div class="row">
+        //             <div class="col-8">
+        //                 <p>${data.data[0].home_team.name}:</p>
+        //                 <p>${data.data[0].visitor_team.name}:</p>
+        //             </div>
+        //             <div class="col-4"></div>
+        //         </div>
+                
+        //     </div>                
+        //     <div class="col-6">
+        //         <p><strong>${data.data[0].status}</strong> ${data.data[0].time == "" ? "" : `- ${data.data[0].time}`}</p>
+        //     </div>
+        // </div>
         document.getElementById('team-modal').innerHTML = container
     }
 }

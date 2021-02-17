@@ -40,14 +40,20 @@ comparison of stats of 2 nba players per season - https://www.balldontlie.io/api
 
 Core functionalities:
 
+INDIVIDUAL NBA PLAYER:
+- shows the information of an nba player for the current season (full name, position, full team name, height, weight, ppg, rpg, apg, gp, min, fgm, fga, fg%)
+- shows the next 3 or 4 games of a selected nba player (month, day, year, opponent team name, time)
+- shows the last 3 previous game stats of selected nba player (month, day, year, opponent team name, pts, reb, ast, stl, min, fg%)
 
-- Stats of a specific NBA player this current season and past seasons
-- Next 3 games of a specific NBA team for a specific player
-- Comparison of stats of 2 NBA players this season
-- Stats of the last 3 games of a specific NBA player
+COMPARISON OF 2 NBA PLAYERS:
+- shows the information of selected nba players (full name, position, full team name, height, weight, ppg, rpg, apg, gp, min, fgm, fga, fg%)
+- hightlights the stat of a player that has higher value than the other (ppg, rpg, apg, gp, min, fgm, fga, fg%)
 
-- List of current NBA teams
-- Information about the conference and the division of a specific NBA team
+TEAMS:
+- shows the information of all 30 nba teams, separated according to conference (team logo, team full name, conference, division)
+- shows the upcoming game of a selected nba team (team logo, month, day, year, opponent team full name, opponent conference, time)
+- shows the current scores, quarter of a live game of a selected team
+- shows "No upcoming game on modal" if no upcoming game for a selected nba team
 
 
 

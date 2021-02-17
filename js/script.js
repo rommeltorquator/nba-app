@@ -1,14 +1,12 @@
 $('#collapseExample').on('shown.bs.collapse', function () {
     // do something...
     document.getElementById('collapseButton').innerText = "Hide"
-    // document.getElementById('last-3').classList.add('py-4')
     document.getElementById('collapseExample').scrollIntoView()
 })
 
 $('#collapseExample').on('hidden.bs.collapse', function () {
     // do something...
     document.getElementById('collapseButton').innerText = "Last 3 games"
-    // document.getElementById('last-3').classList.remove('py-4')
 })
 
 // event handlers //
@@ -109,6 +107,7 @@ let p1Min = 0
 let p1Fgm = 0
 let p1Fga = 0
 let p1FgPct = 0
+let p1TotalTime = 0
 
 let p2Ppg = 0
 let p2Apg = 0
@@ -119,6 +118,7 @@ let p2Min = 0
 let p2Fgm = 0
 let p2Fga = 0
 let p2FgPct = 0
+let p2TotalTime = 0
 
 // get the team names
 getTeamNames()
@@ -153,17 +153,13 @@ function getPlayer() {
                 document.getElementById('no-player').style.display = 'block'
                 document.getElementById('no-player').innerText = 'Player not found'
                 document.getElementById('player-profile').style.display = 'none'
-                // document.getElementById('collapseExample').style.display = 'block'
             } else {
-                // console.log(data.data[0])
                 // individual player
                 playerId = parseInt(data.data[0].id)
                 playerTeamId = data.data[0].team.id
-                document.getElementById('full-name').innerText = `${data.data[0].first_name} ${data.data[0].last_name}`
-                document.getElementById('team').innerText = `${data.data[0].team.full_name} - 2020-21`
+                document.getElementById('full-name').innerText = `${data.data[0].first_name} ${data.data[0].last_name} - ${data.data[0].position}`
+                document.getElementById('team').innerText = `${data.data[0].team.full_name} ${data.data[0].height_feet != null ? `| ${data.data[0].height_feet}'${data.data[0].height_inches}` : ""} ${data.data[0].weight_pounds != null ? `| ${data.data[0].weight_pounds} lbs` : ""}`
                 document.getElementById('no-player').style.display = 'none'
-
-                // data.data[0].team.id
                 
                 getLast3Games()
                 getStats()
@@ -191,8 +187,6 @@ function getPlayer() {
                 let seventhDay = new Date(sixthDay)
                 seventhDay.setDate(seventhDay.getDate() + 1)
 
-                // console.log(today.getMonth(), today.getDate(), today.getFullYear())
-
                 // get the next 3 games of the selected player's team
                 fetch(`https://www.balldontlie.io/api/v1/games?team_ids[]=${playerTeamId}&start_date=%27${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}%27&end_date=%27${seventhDay.getFullYear()}-${seventhDay.getMonth() + 1}-${seventhDay.getDate()}%27`)
                 .then(res => res.json())
@@ -214,20 +208,10 @@ function getPlayer() {
                         let today = new Date(x.date)
                         today.setDate(today.getDate() + 1)
 
-                        // tomorrow.setDate(tomorrow.getDate() + 1)
-
                         container += `<p style="font-size: 13px;" class="text-center"><strong>${monthNames[today.getMonth()]}</strong> ${today.getDate()}, ${today.getFullYear()} <strong>${x.home_team.id == playerTeamId ? "VS" : "@"}</strong> <strong><span class="font-blue">${x.home_team.id == playerTeamId ? x.visitor_team.name : x.home_team.name}</span></strong> <strong>${x.status}</strong></p>`
 
                     })
                     document.getElementById('next-3-games').innerHTML += container
-
-                    // console.log(`${monthNames[today1.getMonth() + 1]} ${today1.getDate()}, ${today1.getFullYear()}`, '@', pendingGames[0].visitor_team.full_name)
-
-                    // document.getElementById('next-3-games').innerHTML = `<p style="font-size: 13px;" class="text-center"><strong>${monthNames[today1.getMonth()]}</strong> ${today1.getDate()}, ${today1.getFullYear()} ${pendingGames[0].home_team.id == playerTeamId ? "VS" : "@"} ${pendingGames[0].home_team.id == playerTeamId ? pendingGames[0].visitor_team.name : pendingGames[0].home_team.name} <strong>${pendingGames[0].status}</strong></p>`
-
-                    console.log(pendingGames)
-                    // console.log(pendingGames[0].date)
-                    // console.log(monthNames[today1.getMonth()], today1.getDate() + 1, today1.getFullYear())
                 })
             }
         })
@@ -248,7 +232,6 @@ function getStats() {
             document.getElementById('no-player').style.display = 'block'
             document.getElementById('no-player').innerText = 'No available stats for the current season'
         } else {
-            // console.log(data.data[0])
             // season stats
             document.getElementById('ppg').innerText = data.data[0].pts.toFixed(1)
             document.getElementById('rpg').innerText = data.data[0].reb.toFixed(1)
@@ -286,12 +269,9 @@ async function getLast3Games() {
     // console.log(arr1)                     
 
     let container = ''
-    let date
-
-    // <td><strong>${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}</strong></td>
+    let date    
 
     arr1.slice(0, 3).forEach(x => {
-        // console.log(x.game.date.substr(0, 10))
         date = new Date(x.game.date.substr(0, 10))
         const monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"];
@@ -326,6 +306,10 @@ async function getP1(f1, l1) {
         let first = data.data[0].first_name
         let last = data.data[0].last_name
         let team = data.data[0].team.full_name
+        let pos = data.data[0].position
+        let hFeet = data.data[0].height_feet
+        let hInch = data.data[0].height_inches
+        let w2 = data.data[0].weight_pounds
     
         // show the current stats of specific player for the selected this season
         fetch(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${p1Id}`)
@@ -337,13 +321,11 @@ async function getP1(f1, l1) {
                 document.getElementById('no-player-1').style.display = 'block'
                 document.getElementById('no-player-1').innerText = 'No available stats for the current season'
             } else {
-                // console.log(data.data[0])
-
                 // season stats
                 document.getElementById('no-player-1').style.display = 'none'
                 document.querySelector('.card-1').style.display = `block`
-                document.getElementById('p1-name').textContent = `${first} ${last}`
-                document.getElementById('p1-team').textContent = `${team}`
+                document.getElementById('p1-name').textContent = `${first} ${last} - ${pos}`
+                document.getElementById('p1-team').textContent = `${team} ${hFeet != null ? `| ${hFeet}` : ''} ${hInch != null ? `'${hInch}` : ''} ${w2 != null ? `| ${w2} lbs` : ``}`
                 document.getElementById('p1-ppg').textContent = data.data[0].pts.toFixed(1)
                 document.getElementById('p1-rpg').textContent = data.data[0].reb.toFixed(1)
                 document.getElementById('p1-apg').textContent = data.data[0].ast.toFixed(1)
@@ -362,7 +344,11 @@ async function getP1(f1, l1) {
                 p1Min = data.data[0].min
                 p1Fgm = data.data[0].fgm
                 p1Fga = data.data[0].fga
-                p1FgPct = data.data[0].fg_pct                
+                p1FgPct = data.data[0].fg_pct
+                
+                let mins = p1Min.substr(0, 2)
+                let secs = p1Min.substr(3, 2)
+                p1TotalTime = (Number(mins) * 60) + Number(secs)
             }
         })
         .catch(error => {
@@ -387,6 +373,11 @@ async function getP2(f2, l2) {
         let last = data.data[0].last_name
         let team = data.data[0].team.full_name
 
+        let pos = data.data[0].position
+        let hFeet = data.data[0].height_feet
+        let hInch = data.data[0].height_inches
+        let w2 = data.data[0].weight_pounds
+
         // show the current stats of specific player for the selected this season
         fetch(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${p2Id}`)
         .then(res => res.json())
@@ -407,8 +398,7 @@ async function getP2(f2, l2) {
                 p2Fga = data.data[0].fga
                 p2FgPct = data.data[0].fg_pct
 
-                // p1
-                                
+                // p1                                
                 p1Ppg = Number(p1Ppg)
                 p1Rpg = Number(p1Rpg)
                 p1Apg = Number(p1Apg)
@@ -417,8 +407,7 @@ async function getP2(f2, l2) {
                 p1Fgm = Number(p1Fgm)
                 p1Fga = Number(p1Fga)
 
-                // p2
-                
+                // p2                
                 p2Ppg = Number(p2Ppg)
                 p2Rpg = Number(p2Rpg)
                 p2Apg = Number(p2Apg)
@@ -426,9 +415,10 @@ async function getP2(f2, l2) {
 
                 p2Fgm = Number(p2Fgm)
                 p2Fga = Number(p2Fga)
-                
-                console.log(p1Ppg, p1Rpg, p1Apg, p1Gp, p1Min, p1Fgm, p1Fga, p1FgPct)
-                console.log(p2Ppg, p2Rpg, p2Apg, p2Gp, p2Min, p2Fgm, p2Fga, p2FgPct)
+
+                let mins = p2Min.substr(0, 2)
+                let secs = p2Min.substr(3, 2)
+                p2TotalTime = (Number(mins) * 60) + Number(secs)
 
                 // points
                 if(p1Ppg > p2Ppg) {
@@ -471,15 +461,15 @@ async function getP2(f2, l2) {
                     document.getElementById('p2-fg').style.fontWeight = 'bold'
                 }
 
-                // // min
-                // if(p1Min < p2Min ) {
-                //     document.getElementById('p1-min').style.fontWeight = 'bold'
-                // } else if (p1Min == p2Min) {
-                //     document.getElementById('p1-min').style.fontWeight = 'bold'
-                //     document.getElementById('p2-min').style.fontWeight = 'bold'
-                // } else {
-                //     document.getElementById('p2-min').style.fontWeight = 'bold'
-                // }
+                // min
+                if(p1TotalTime > p2TotalTime ) {
+                    document.getElementById('p1-min').style.fontWeight = 'bold'
+                } else if (p1Min == p2Min) {
+                    document.getElementById('p1-min').style.fontWeight = 'bold'
+                    document.getElementById('p2-min').style.fontWeight = 'bold'
+                } else {
+                    document.getElementById('p2-min').style.fontWeight = 'bold'
+                }
 
                 // fgm
                 if(p1Fgm > p2Fgm) {
@@ -511,13 +501,11 @@ async function getP2(f2, l2) {
                     document.getElementById('p2-fg-pct').style.fontWeight = 'bold'
                 }
 
-                // console.log(data.data[0])
                 // season stats
-
                 document.getElementById('no-player-2').style.display = 'none'
                 document.querySelector('.card-2').style.display = `block`
-                document.getElementById('p2-name').textContent = `${first} ${last}`
-                document.getElementById('p2-team').textContent = `${team}`
+                document.getElementById('p2-name').textContent = `${first} ${last} - ${pos}`
+                document.getElementById('p2-team').textContent = `${team} ${hFeet != null ? `| ${hFeet}` : ''} ${hInch != null ? `'${hInch}` : ''} ${w2 != null ? `| ${w2} lbs` : ``}`
                 document.getElementById('p2-ppg').textContent = data.data[0].pts.toFixed(1)
                 document.getElementById('p2-rpg').textContent = data.data[0].reb.toFixed(1)
                 document.getElementById('p2-apg').textContent = data.data[0].ast.toFixed(1)
@@ -539,13 +527,10 @@ async function getNextGame(id) {
     // get the date for the next day
     const today = new Date()
     const tomorrow = new Date(today)
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    // console.log(tomorrow.getMonth(), tomorrow.getDate(), tomorrow.getFullYear())
+    tomorrow.setDate(tomorrow.getDate() + 1)   
 
     res = await fetch(`https://www.balldontlie.io/api/v1/games?seasons[]=2020&team_ids[]=${id}&dates[]=%27${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}%27`)
     data = await res.json()
-
-    console.log(data.data)
 
     if(data.data.length == 0) {
         let container = ''
@@ -597,27 +582,6 @@ async function getNextGame(id) {
             <p style="display:block;"><strong>${data.data[0].status}</strong> ${data.data[0].time == "" ? "" : `- ${data.data[0].time}`}</p>
         </div>
         `
-        // <div class="col-12 d-flex justify-content-center">      
-        //         <p>${data.data[0].home_team.name}: ${data.data[0].home_team_score} ${data.data[0].visitor_team.name}:${data.data[0].visitor_team_score}</p>
-        //         <p><strong>${data.data[0].status}</strong> ${data.data[0].time == "" ? "" : `- ${data.data[0].time}`}</p>
-                
-        // </div>
-
-        // <div class="row">
-        //     <div class="col-6">
-        //         <div class="row">
-        //             <div class="col-8">
-        //                 <p>${data.data[0].home_team.name}:</p>
-        //                 <p>${data.data[0].visitor_team.name}:</p>
-        //             </div>
-        //             <div class="col-4"></div>
-        //         </div>
-                
-        //     </div>                
-        //     <div class="col-6">
-        //         <p><strong>${data.data[0].status}</strong> ${data.data[0].time == "" ? "" : `- ${data.data[0].time}`}</p>
-        //     </div>
-        // </div>
         document.getElementById('team-modal').innerHTML = container
     }
 }

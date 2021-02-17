@@ -26,7 +26,6 @@ h3,
 h4,
 h5,
 h6 {
-  /* font-family: 'Candal', sans-serif; */
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -114,10 +113,7 @@ table, tr, th, td {
 
 .player-input {  
   font-size: 19px !important;
-  /* padding: .7rem 2.5rem; */
-  /* width: 320px !important; */
   height: 39.5px;
-  /* color: #333333; */
 }
 
 .btn-primary {

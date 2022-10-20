@@ -223,7 +223,7 @@ function getPlayer() {
 
 function getStats() {
     // show the current stats of specific player for the selected this season
-    fetch(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${playerId}`)
+    fetch(`https://www.balldontlie.io/api/v1/season_averages?season=2021&player_ids[]=${playerId}`)
     .then(res => res.json())
     .then(data => {
         // if no available stats 
@@ -312,7 +312,7 @@ async function getP1(f1, l1) {
         let w2 = data.data[0].weight_pounds
     
         // show the current stats of specific player for the selected this season
-        fetch(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${p1Id}`)
+        fetch(`https://www.balldontlie.io/api/v1/season_averages?season=2021&player_ids[]=${p1Id}`)
         .then(res => res.json())
         .then(data => {
             // if no available stats 
@@ -379,7 +379,7 @@ async function getP2(f2, l2) {
         let w2 = data.data[0].weight_pounds
 
         // show the current stats of specific player for the selected this season
-        fetch(`https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${p2Id}`)
+        fetch(`https://www.balldontlie.io/api/v1/season_averages?season=2021&player_ids[]=${p2Id}`)
         .then(res => res.json())
         .then(data => {
             // if no available stats 
@@ -529,7 +529,7 @@ async function getNextGame(id) {
     const tomorrow = new Date(today)
     tomorrow.setDate(tomorrow.getDate() + 1)   
 
-    res = await fetch(`https://www.balldontlie.io/api/v1/games?seasons[]=2020&team_ids[]=${id}&dates[]=%27${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}%27`)
+    res = await fetch(`https://www.balldontlie.io/api/v1/games?seasons[]=2022&team_ids[]=${id}`)
     data = await res.json()
 
     if(data.data.length == 0) {
